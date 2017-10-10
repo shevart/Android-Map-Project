@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,19 +14,51 @@
         android:orientation="vertical"
         android:padding="@dimen/double_dimen">
 
-        <EditText
-            android:id="@+id/etFrom"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_edittext_bg"
-            android:inputType="none" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/etTo"
+            <EditText
+                android:id="@+id/etRouteFrom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_edittext_bg"
+                android:inputType="none"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/ivRouteFrom"
+                android:layout_width="@dimen/big_dimen"
+                android:layout_height="@dimen/big_dimen"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/base_dimen"
+                android:padding="@dimen/min_dimen"
+                app:srcCompat="@drawable/wrapper_ic_history_light"
+                tools:ignore="RtlHardcoded" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/base_dimen"
-            android:background="@drawable/selector_edittext_bg" />
+            android:layout_marginTop="@dimen/base_dimen">
+
+            <EditText
+                android:id="@+id/etRouteTo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_edittext_bg"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/ivRouteTo"
+                android:layout_width="@dimen/big_dimen"
+                android:layout_height="@dimen/big_dimen"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/base_dimen"
+                android:padding="@dimen/min_dimen"
+                app:srcCompat="@drawable/wrapper_ic_history_light"
+                tools:ignore="RtlHardcoded" />
+        </FrameLayout>
     </LinearLayout>
 
     <!-- todo put map here! -->
@@ -33,14 +66,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.shevart.google_map.MainActivity" />
+
         <Button
             android:id="@+id/btCreateRoute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_margin="@dimen/base_dimen"
-            android:text="@string/create_route"
             android:background="@drawable/shape_button_yellow_bg"
+            android:text="@string/create_route"
             android:textColor="@color/grey_dark" />
     </FrameLayout>
 </LinearLayout>

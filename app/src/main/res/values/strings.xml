@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Android-Map-Project</string>
     <string name="create_route">Проложить маршрут</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
