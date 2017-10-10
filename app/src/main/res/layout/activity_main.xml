@@ -3,7 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.shevart.google_map.MainActivity">
 
-    <include layout="@layout/element_map_control_panel" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_dark"
+        android:orientation="vertical"
+        android:padding="@dimen/double_dimen">
+
+        <EditText
+            android:id="@+id/etFrom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_edittext_bg"
+            android:inputType="none" />
+
+        <EditText
+            android:id="@+id/etTo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_dimen"
+            android:background="@drawable/selector_edittext_bg" />
+    </LinearLayout>
+
+    <!-- todo put map here! -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btCreateRoute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/base_dimen"
+            android:text="@string/create_route"
+            android:background="@drawable/shape_button_yellow_bg"
+            android:textColor="@color/grey_dark" />
+    </FrameLayout>
 </LinearLayout>
