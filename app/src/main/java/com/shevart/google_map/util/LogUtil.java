@@ -3,7 +3,7 @@ package com.shevart.google_map.util;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class LogUtil {
     private static final String TAG = "<- Map-Project-Tag ->";
 
