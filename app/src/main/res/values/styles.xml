@@ -11,4 +11,7 @@
         <item name="colorAccent">@color/yellow</item>
     </style>
 
+    <style name="AppTheme.SplashTheme">
+        <item name="android:windowBackground">@drawable/layer_list_splash_bg</item>
+    </style>
 </resources>

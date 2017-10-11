@@ -16,7 +16,8 @@
         android:name=".app.MapProjectApplication"
         android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
         <activity android:name=".ui.screens.main.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

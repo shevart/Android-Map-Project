@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_dark"
     tools:context="com.shevart.google_map.ui.screens.main.MainActivity">
 
     <include layout="@layout/element_main_screen_ui" />

@@ -21,10 +21,6 @@ import java.util.List;
 public class MapUtils {
     private static final LatLng UKRAINE = new LatLng(48.379433, 31.165579999999977);
 
-//    public static MarkerOptions createMarkerOptions(@NonNull LatLng mapPoint, @NonNull String name) {
-//        return createMarkerOptions(mapPoint, name, R.drawable.res_name);
-//    }
-
     public static MarkerOptions createMarkerOptions(@NonNull LatLng mapPoint,
                                                     @NonNull String name, @DrawableRes int iconId) {
         return new MarkerOptions()
