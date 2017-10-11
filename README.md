@@ -15,7 +15,9 @@ At this project I don't use any third libraries besides libs from Google.
 - *Work with "My Location" button (show/hide)...DONE*
 - *Add map click handling - get coordinates...DONE*
 - *Make simple NetManager for execution async net requests...DONE*
-- Search place info by coordinates
+- *Search place info by coordinates...DONE*
+- *Add base MVP classes...DONE*
+- Add MVP to MainScreen...DONE*
 - Create selecting address fot trip point (start point/end point)
 - Route request to Google API
 - Draw route between start-end points

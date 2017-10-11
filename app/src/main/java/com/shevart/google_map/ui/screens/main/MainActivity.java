@@ -14,12 +14,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.shevart.google_map.R;
-import com.shevart.google_map.data.AsyncDataCallback;
-import com.shevart.google_map.data.net.NetManager;
 import com.shevart.google_map.location.UserLocation;
 import com.shevart.google_map.location.UserLocationManager;
 import com.shevart.google_map.models.TripPoint;
-import com.shevart.google_map.ui.base.AbsActivity;
+import com.shevart.google_map.ui.base.AbsMVPActivity;
 import com.shevart.google_map.ui.google_map.GoogleMapViewHelper;
 import com.shevart.google_map.util.LogUtil;
 import com.shevart.google_map.util.PermissionsUtils;
@@ -28,7 +26,8 @@ import com.shevart.google_map.util.UiNotificationsUtils;
 import com.shevart.google_map.util.UiUtil;
 
 @SuppressWarnings("FieldCanBeLocal")
-public class MainActivity extends AbsActivity implements OnMapReadyCallback,
+public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, MainScreenContract.View> implements MainScreenContract.View,
+        OnMapReadyCallback,
         UserLocationManager.LocationEventsListener {
     private static final int LOCATION_PERMISSION_CODE = 111;
 
@@ -39,6 +38,7 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
     private EditText etRouteEnd;
     private Button btCreateRoute;
     private ImageButton btMyLocation;
+    private View progressView;
 
     private View.OnClickListener controlPanelButtonClickListener = new View.OnClickListener() {
         @Override
@@ -79,6 +79,16 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
     }
 
     @Override
+    protected MainScreenContract.Presenter obtainPresenter() {
+        return new MainPresenter(getApp().getNet());
+    }
+
+    @Override
+    protected MainScreenContract.View obtainView() {
+        return this;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         userLocationManager.addLocationEventsListener(this);
@@ -105,6 +115,7 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
         btMyLocation.setOnClickListener(controlPanelButtonClickListener);
         findViewById(R.id.ivRouteStart).setOnClickListener(controlPanelButtonClickListener);
         findViewById(R.id.ivRouteEnd).setOnClickListener(controlPanelButtonClickListener);
+        progressView = findViewById(R.id.progressView);
     }
 
     private void startUserLocationTracking() {
@@ -208,5 +219,30 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
     private void turnOnGPS() {
         SystemUtils.GPS.turnGPSOn(this);
         UiNotificationsUtils.showEmptyToast(this, getString(R.string.turn_on_gps_on_settings));
+    }
+
+    @Override
+    public void showProgress() {
+        progressView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onStartTripRouteSelected(@NonNull TripPoint tripPoint) {
+
+    }
+
+    @Override
+    public void onEndTripRouteSelected(@NonNull TripPoint tripPoint) {
+
+    }
+
+    @Override
+    public void showErrorPlaceMessage() {
+        UiNotificationsUtils.showEmptyToast(this, getString(R.string.error_pick_address_by_geopoint));
     }
 }

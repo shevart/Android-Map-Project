@@ -11,4 +11,5 @@
     <string name="start_trip_route">Откуда</string>
     <string name="no_internet_connection">Нет интернет-соединения!</string>
     <string name="ok">Ок</string>
+    <string name="error_pick_address_by_geopoint">Не удалось определеить адрес - попробуйте еще раз!</string>
 </resources>

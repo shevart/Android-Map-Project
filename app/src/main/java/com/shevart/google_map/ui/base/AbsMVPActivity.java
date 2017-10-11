@@ -19,12 +19,21 @@ public abstract class AbsMVPActivity<P extends BasePresenter<V>, V extends BaseV
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = obtainPresenter();
+        presenter.attachView(obtainView());
     }
 
     protected abstract P obtainPresenter();
 
+    protected abstract V obtainView();
+
     public P getPresenter() {
         return presenter;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
     }
 
     @Override

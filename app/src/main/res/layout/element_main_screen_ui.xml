@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_dark"
+        android:orientation="vertical"
+        android:padding="@dimen/double_dimen">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etRouteStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_edittext_bg"
+                android:longClickable="false"
+                android:hint="@string/start_trip_route"
+                android:textColorHint="@color/grey_light"
+                android:lines="2"
+                android:textSize="12sp"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/ivRouteStart"
+                android:layout_width="@dimen/big_dimen"
+                android:layout_height="@dimen/big_dimen"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/base_dimen"
+                android:padding="@dimen/min_dimen"
+                app:srcCompat="@drawable/wrapper_ic_history_light"
+                tools:ignore="RtlHardcoded" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_dimen">
+
+            <EditText
+                android:id="@+id/etRouteEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:longClickable="false"
+                android:hint="@string/end_trip_route"
+                android:textColorHint="@color/grey_light"
+                android:textSize="12sp"
+                android:lines="2"
+                android:background="@drawable/selector_edittext_bg"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/ivRouteEnd"
+                android:layout_width="@dimen/big_dimen"
+                android:layout_height="@dimen/big_dimen"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/base_dimen"
+                android:padding="@dimen/min_dimen"
+                app:srcCompat="@drawable/wrapper_ic_history_light"
+                tools:ignore="RtlHardcoded" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.shevart.google_map.ui.screens.main.MainActivity" />
+
+        <Button
+            android:id="@+id/btCreateRoute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/base_dimen"
+            android:background="@drawable/shape_button_yellow_bg"
+            android:text="@string/create_route"
+            android:textColor="@color/grey_dark" />
+
+        <ImageButton
+            android:id="@+id/btMyLocation"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_gravity="right"
+            android:padding="@dimen/base_dimen"
+            android:layout_margin="@dimen/pre_double_dimen"
+            android:background="@drawable/shape_blue_circle"
+            android:visibility="gone"
+            app:srcCompat="@drawable/wrapper_ic_gps_fixed_white"
+            tools:ignore="RtlHardcoded" />
+    </FrameLayout>
+</LinearLayout>
