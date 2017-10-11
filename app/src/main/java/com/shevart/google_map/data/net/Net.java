@@ -8,7 +8,8 @@ import com.shevart.google_map.models.TripPoint;
 
 @SuppressWarnings("WeakerAccess")
 public interface Net {
-    void getPlaceByCoordinates(@NonNull String googlePlaceWebApiKey,
-                               @NonNull LatLng latLng,
+    boolean isNetConnectionAvailable();
+
+    void getPlaceByCoordinates(@NonNull LatLng latLng,
                                @NonNull AsyncDataCallback<TripPoint> callback);
 }

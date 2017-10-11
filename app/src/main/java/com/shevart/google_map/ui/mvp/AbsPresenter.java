@@ -21,4 +21,8 @@ public class AbsPresenter<V extends BaseView> implements BasePresenter<V> {
     protected boolean isViewAttach() {
         return view != null;
     }
+
+    public V getView() {
+        return view;
+    }
 }

@@ -76,22 +76,6 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-        // TODO: 11.10.17 remove after test
-        NetManager netManager = new NetManager();
-        LatLng latLng = new LatLng(46.977529, 32.021110);
-        netManager.getPlaceByCoordinates(getString(R.string.google_place_api_key), latLng, new AsyncDataCallback<TripPoint>() {
-            @Override
-            public void onResult(@NonNull TripPoint data) {
-                UiNotificationsUtils.showDevMessage(MainActivity.this, data.getAddress());
-            }
-
-            @Override
-            public void onError(@NonNull Exception e) {
-                LogUtil.e(e);
-            }
-        });
     }
 
     @Override
