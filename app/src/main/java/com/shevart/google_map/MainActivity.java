@@ -1,6 +1,7 @@
 package com.shevart.google_map;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,10 +14,14 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shevart.google_map.ui.base.AbsActivity;
+import com.shevart.google_map.util.PermissionsUtils;
+import com.shevart.google_map.util.UiNotificationsUtils;
 import com.shevart.google_map.util.UiUtil;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class MainActivity extends AbsActivity implements OnMapReadyCallback {
+    private static final int LOCATION_PERMISSION_CODE = 21;
+
     private EditText etRouteStart;
     private EditText etRouteEnd;
     private Button btCreateRoute;
@@ -43,15 +48,16 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback {
             }
         }
     };
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         hideActionBar();
         initViews();
+        requestLocationPermission();
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
@@ -69,6 +75,26 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback {
         findViewById(R.id.ivRouteStart).setOnClickListener(controlPanelButtonClickListener);
         findViewById(R.id.ivRouteEnd).setOnClickListener(controlPanelButtonClickListener);
     }
+
+    private void requestLocationPermission() {
+        if (PermissionsUtils.UserLocationPermission.isNeedRequest(this)) {
+            PermissionsUtils.UserLocationPermission.request(this, LOCATION_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case LOCATION_PERMISSION_CODE:
+                boolean allowed = PermissionsUtils.UserLocationPermission.isAllowed(permissions, grantResults);
+                UiNotificationsUtils.showDevMessage(MainActivity.this, "GPS is " +
+                        (allowed ? "allowed" : "denied"));
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
 
     private void selectFromHistoryRoutePointStart() {
 
@@ -92,4 +118,6 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback {
         googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
+
 }
