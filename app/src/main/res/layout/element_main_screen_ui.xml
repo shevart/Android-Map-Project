@@ -29,7 +29,7 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/grey_light"
                 android:textSize="12sp"
-                android:textColorHighlight="@android:color/transparent"
+                android:inputType="textMultiLine|textNoSuggestions"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
 
             <ImageView
@@ -58,10 +58,10 @@
                 android:longClickable="false"
                 android:paddingRight="@dimen/big_dimen"
                 android:textColor="@android:color/white"
-                android:textColorHighlight="@android:color/transparent"
                 android:textColorHint="@color/grey_light"
                 android:textSize="12sp"
-                tools:ignore="RtlHardcoded" />
+                android:inputType="textMultiLine|textNoSuggestions"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
 
             <ImageView
                 android:id="@+id/ivRouteEnd"

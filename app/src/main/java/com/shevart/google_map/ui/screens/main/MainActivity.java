@@ -208,6 +208,7 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
     @Override
     public void onGPSSignalDisappeared() {
         btMyLocation.setVisibility(View.GONE);
+        googleMapViewHelper.hideUserLocation();
         LogUtil.e("onGPSSignalDisappeared()");
     }
 
