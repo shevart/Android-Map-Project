@@ -1,11 +1,11 @@
 package com.shevart.google_map.util;
 
+import android.content.Context;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.text.InputType;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -23,14 +23,23 @@ public class UiUtil {
             editText.setShowSoftInputOnFocus(false);
         } else {
             try {
-                final Method method = EditText.class.getMethod(
-                        "setShowSoftInputOnFocus"
-                        , new Class[]{boolean.class});
+                @SuppressWarnings("RedundantArrayCreation")
+                final Method method =
+                        EditText.class.getMethod("setShowSoftInputOnFocus", new Class[]{boolean.class});
                 method.setAccessible(true);
                 method.invoke(editText, false);
             } catch (Exception e) {
-                // ignore
+                LogUtil.e(e);
             }
+        }
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public static int getColor(@NonNull Context context, @ColorRes int colorId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return context.getResources().getColor(colorId, context.getTheme());
+        } else {
+            return context.getResources().getColor(colorId);
         }
     }
 }

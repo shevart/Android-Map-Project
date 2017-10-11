@@ -18,6 +18,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.shevart.google_map.location.UserLocation;
 import com.shevart.google_map.location.UserLocationManager;
 import com.shevart.google_map.ui.base.AbsActivity;
+import com.shevart.google_map.ui.google_map.GoogleMapViewHelper;
+import com.shevart.google_map.util.LogUtil;
 import com.shevart.google_map.util.PermissionsUtils;
 import com.shevart.google_map.util.SystemUtils;
 import com.shevart.google_map.util.UiNotificationsUtils;
@@ -29,6 +31,7 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
     private static final int LOCATION_PERMISSION_CODE = 111;
 
     private UserLocation userLocationManager;
+    private GoogleMapViewHelper googleMapViewHelper;
 
     private EditText etRouteStart;
     private EditText etRouteEnd;
@@ -65,12 +68,24 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
         initViews();
 
         userLocationManager = new UserLocationManager(getApplicationContext());
-        userLocationManager.addLocationEventsListener(this);
+        googleMapViewHelper = new GoogleMapViewHelper(getApplicationContext());
         startUserLocationTracking();
 
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        userLocationManager.addLocationEventsListener(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        userLocationManager.removeLocationEventsListener(this);
     }
 
     private void initViews() {
@@ -134,16 +149,13 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng sydney = new LatLng(-34, 151);
-        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        googleMapViewHelper.onMapReady(googleMap);
     }
-
 
     @Override
     public void onUserLocationChanged(@NonNull LatLng myNewLocation) {
-        UiNotificationsUtils.showDevMessage(this, "onUserLocationChanged() + "
-                + myNewLocation.toString());
+        LogUtil.e("onUserLocationChanged() + " + myNewLocation.toString());
+        googleMapViewHelper.updateUserLocation(myNewLocation);
     }
 
     @Override

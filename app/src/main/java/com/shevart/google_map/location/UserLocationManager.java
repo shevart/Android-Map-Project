@@ -97,7 +97,8 @@ public class UserLocationManager implements
     @Override
     public void addLocationEventsListener(@NonNull LocationEventsListener eventsListener) {
         checkNonNull(eventsListener);
-        locationEventsListeners.add(eventsListener);
+        if (!locationEventsListeners.contains(eventsListener))
+            locationEventsListeners.add(eventsListener);
         determineFurtherWork();
     }
 
