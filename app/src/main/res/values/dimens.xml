@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="double_dimen">16dp</dimen>
     <dimen name="min_dimen">4dp</dimen>
     <dimen name="base_dimen">8dp</dimen>
+    <dimen name="pre_double_dimen">12dp</dimen>
+    <dimen name="double_dimen">16dp</dimen>
     <dimen name="big_dimen">32dp</dimen>
 </resources>

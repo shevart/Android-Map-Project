@@ -1,12 +1,10 @@
 package com.shevart.google_map;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,10 +15,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.shevart.google_map.ui.base.AbsActivity;
 import com.shevart.google_map.util.UiUtil;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class MainActivity extends AbsActivity implements OnMapReadyCallback {
     private EditText etRouteStart;
     private EditText etRouteEnd;
     private Button btCreateRoute;
+    private ImageButton btMyLocation;
 
     private View.OnClickListener controlPanelButtonClickListener = new View.OnClickListener() {
         @Override
@@ -34,6 +34,9 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback {
                     break;
                 case R.id.btCreateRoute:
                     createRoute();
+                    break;
+                case R.id.btMyLocation:
+                    myGPSPositionClick();
                     break;
                 default:
                     throw new IllegalArgumentException("Check it!");
@@ -61,6 +64,8 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback {
         btCreateRoute = findViewById(R.id.btCreateRoute);
         btCreateRoute.setEnabled(false);
         btCreateRoute.setOnClickListener(controlPanelButtonClickListener);
+        btMyLocation = findViewById(R.id.btMyLocation);
+        btMyLocation.setOnClickListener(controlPanelButtonClickListener);
         findViewById(R.id.ivRouteStart).setOnClickListener(controlPanelButtonClickListener);
         findViewById(R.id.ivRouteEnd).setOnClickListener(controlPanelButtonClickListener);
     }
@@ -74,6 +79,10 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback {
     }
 
     private void createRoute() {
+
+    }
+
+    private void myGPSPositionClick() {
 
     }
 
