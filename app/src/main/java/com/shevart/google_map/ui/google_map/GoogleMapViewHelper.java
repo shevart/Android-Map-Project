@@ -3,6 +3,7 @@ package com.shevart.google_map.ui.google_map;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
@@ -32,13 +33,24 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
         if (googleMap == null)
             return;
         removeMyLocationMarker();
-        currentLocationMarker = googleMap.addMarker(
-                MapUtils.createMarkerOptionsCurrentLocation(latLng, "Current location"));
+        currentLocationMarker = googleMap
+                .addMarker(MapUtils.createMarkerOptionsCurrentLocation(latLng, "Current location"));
     }
 
     private void removeMyLocationMarker() {
         if (currentLocationMarker != null) {
             currentLocationMarker.remove();
         }
+    }
+
+    public void showUserLocation() {
+        if (currentLocationMarker != null) {
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocationMarker.getPosition()));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        }
+    }
+
+    public void hideUserLocation() {
+        removeMyLocationMarker();
     }
 }

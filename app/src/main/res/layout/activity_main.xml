@@ -91,6 +91,7 @@
             android:padding="@dimen/base_dimen"
             android:layout_margin="@dimen/pre_double_dimen"
             android:background="@drawable/shape_blue_circle"
+            android:visibility="gone"
             app:srcCompat="@drawable/wrapper_ic_gps_fixed_white"
             tools:ignore="RtlHardcoded" />
     </FrameLayout>

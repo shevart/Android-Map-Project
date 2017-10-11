@@ -9,12 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.shevart.google_map.location.UserLocation;
 import com.shevart.google_map.location.UserLocationManager;
 import com.shevart.google_map.ui.base.AbsActivity;
@@ -88,13 +86,21 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
         userLocationManager.removeLocationEventsListener(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (SystemUtils.GPS.isGPSEnabled(this)) {
+            btMyLocation.setVisibility(View.VISIBLE);
+            userLocationManager.requestLastUserLocation(this);
+        }
+    }
+
     private void initViews() {
         etRouteStart = findViewById(R.id.etRouteStart);
         etRouteEnd = findViewById(R.id.etRouteEnd);
         UiUtil.disableKeyboardOpening(etRouteStart);
         UiUtil.disableKeyboardOpening(etRouteEnd);
         btCreateRoute = findViewById(R.id.btCreateRoute);
-        btCreateRoute.setEnabled(false);
         btCreateRoute.setOnClickListener(controlPanelButtonClickListener);
         btMyLocation = findViewById(R.id.btMyLocation);
         btMyLocation.setOnClickListener(controlPanelButtonClickListener);
@@ -144,7 +150,8 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
     }
 
     private void myGPSPositionClick() {
-        UiNotificationsUtils.showDevMessage(this, "myGPSPositionClick()");
+        LogUtil.e("myGPSPositionClick()");
+        googleMapViewHelper.showUserLocation();
     }
 
     @Override
@@ -160,12 +167,14 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
 
     @Override
     public void onGPSSignalAppeared() {
-        UiNotificationsUtils.showDevMessage(this, "onGPSSignalAppeared()");
+        LogUtil.e("onGPSSignalAppeared()");
+        btMyLocation.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onGPSSignalDisappeared() {
-        UiNotificationsUtils.showDevMessage(this, "onGPSSignalDisappeared()");
+        LogUtil.e("onGPSSignalDisappeared()");
+        btMyLocation.setVisibility(View.GONE);
     }
 
     private void askUserAboutGPS() {
@@ -190,5 +199,6 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
 
     private void turnOnGPS() {
         SystemUtils.GPS.turnGPSOn(this);
+        UiNotificationsUtils.showEmptyToast(this, getString(R.string.turn_on_gps_on_settings));
     }
 }

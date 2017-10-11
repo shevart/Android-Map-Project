@@ -6,4 +6,5 @@
     <string name="ask_gps_turn_on_msg">У вас выключен GPS, включить его?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="turn_on_gps_on_settings">Включите GPS в Настройках!</string>
 </resources>
