@@ -5,6 +5,11 @@ import android.view.MenuItem;
 
 @SuppressWarnings("unused")
 public abstract class AbsActivity extends AppCompatActivity {
+    protected void hideActionBar() {
+        if (getSupportActionBar() != null)
+            getSupportActionBar().hide();
+    }
+
     @SuppressWarnings("ConstantConditions")
     protected void enableToolbarBackButton() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

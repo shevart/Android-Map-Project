@@ -2,7 +2,9 @@ package com.shevart.google_map;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -12,8 +14,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.shevart.google_map.ui.base.AbsActivity;
+import com.shevart.google_map.util.UiUtil;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AbsActivity implements OnMapReadyCallback {
     private EditText etRouteStart;
     private EditText etRouteEnd;
     private Button btCreateRoute;
@@ -41,20 +45,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (getSupportActionBar() != null)
-            getSupportActionBar().hide();
+        hideActionBar();
+        initViews();
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+    private void initViews() {
         etRouteStart = findViewById(R.id.etRouteStart);
         etRouteEnd = findViewById(R.id.etRouteEnd);
+        UiUtil.disableKeyboardOpening(etRouteStart);
+        UiUtil.disableKeyboardOpening(etRouteEnd);
         btCreateRoute = findViewById(R.id.btCreateRoute);
         btCreateRoute.setEnabled(false);
         btCreateRoute.setOnClickListener(controlPanelButtonClickListener);
         findViewById(R.id.ivRouteStart).setOnClickListener(controlPanelButtonClickListener);
         findViewById(R.id.ivRouteEnd).setOnClickListener(controlPanelButtonClickListener);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
     }
 
     private void selectFromHistoryRoutePointStart() {

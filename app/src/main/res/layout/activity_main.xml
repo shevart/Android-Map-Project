@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_edittext_bg"
+                android:longClickable="false"
                 android:textColor="@android:color/white" />
 
             <ImageView
