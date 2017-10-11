@@ -157,7 +157,7 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
     }
 
     private void askUserAboutGPS() {
-        AlertDialog builder = new AlertDialog.Builder(this)
+        AlertDialog builder = new AlertDialog.Builder(this, R.style.DialogTheme)
                 .setTitle(R.string.attention)
                 .setMessage(R.string.ask_gps_turn_on_msg)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
