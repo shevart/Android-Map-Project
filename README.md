@@ -17,8 +17,8 @@ At this project I don't use any third libraries besides libs from Google.
 - *Make simple NetManager for execution async net requests...DONE*
 - *Search place info by coordinates...DONE*
 - *Add base MVP classes...DONE*
-- Add MVP to MainScreen...DONE*
-- Create selecting address fot trip point (start point/end point)
+- *Add MVP to MainScreen...DONE*
+- *Create selecting address fot trip point (start point/end point)...DONE*
 - Route request to Google API
 - Draw route between start-end points
 - Add second screen with history of addresses
@@ -26,3 +26,13 @@ At this project I don't use any third libraries besides libs from Google.
 - Add select place from history logic
 - Add DatabaseManager for save history 
 - Add methods to databaseManager for work with DB
+- Save tripPoints after selecting in DB
+- Refactor and cleanUp code
+- Add PresenterManager for save presenters even Activity was destroyed
+
+## Additional tasks:
+- show different gps icons depends on gps state
+- splash screen
+- hide cursor from editText fields on the main screen
+- Show important messages in dialog
+- Use styles for the same views
