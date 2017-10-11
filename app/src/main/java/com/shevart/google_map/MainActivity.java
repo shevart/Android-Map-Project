@@ -13,6 +13,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.shevart.google_map.data.net.NetManager;
 import com.shevart.google_map.location.UserLocation;
 import com.shevart.google_map.location.UserLocationManager;
 import com.shevart.google_map.ui.base.AbsActivity;
@@ -72,6 +73,11 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        // TODO: 11.10.17 remove after test
+        NetManager netManager = new NetManager();
+        netManager.test();
     }
 
     @Override
@@ -157,6 +163,16 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMapViewHelper.onMapReady(googleMap);
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                onMapPointSelected(latLng);
+            }
+        });
+    }
+
+    private void onMapPointSelected(@NonNull LatLng latLng) {
+
     }
 
     @Override
@@ -178,7 +194,7 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
     }
 
     private void askUserAboutGPS() {
-        AlertDialog builder = new AlertDialog.Builder(this, R.style.DialogTheme)
+        new AlertDialog.Builder(this, R.style.DialogTheme)
                 .setTitle(R.string.attention)
                 .setMessage(R.string.ask_gps_turn_on_msg)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
