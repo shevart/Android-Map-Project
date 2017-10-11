@@ -1,4 +1,4 @@
-package com.shevart.google_map;
+package com.shevart.google_map.ui.screens.main;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.shevart.google_map.R;
 import com.shevart.google_map.data.AsyncDataCallback;
 import com.shevart.google_map.data.net.NetManager;
 import com.shevart.google_map.location.UserLocation;
@@ -94,24 +95,19 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        userLocationManager.addLocationEventsListener(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        userLocationManager.removeLocationEventsListener(this);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
+        userLocationManager.addLocationEventsListener(this);
         if (SystemUtils.GPS.isGPSEnabled(this)) {
             btMyLocation.setVisibility(View.VISIBLE);
             userLocationManager.requestLastUserLocation(this);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        userLocationManager.removeLocationEventsListener(this);
     }
 
     private void initViews() {
@@ -134,7 +130,7 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
         }
 
         userLocationManager.onUserLocationPermissionAccepted();
-        if (!userLocationManager.isGPSEnabled()) {
+        if (!SystemUtils.GPS.isGPSEnabled(this)) {
             askUserAboutGPS();
         }
         userLocationManager.requestLastUserLocation(this);
@@ -154,7 +150,6 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-
 
     private void selectFromHistoryRoutePointStart() {
         UiNotificationsUtils.showDevMessage(this, "selectFromHistoryRoutePointStart()");
@@ -190,20 +185,20 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
 
     @Override
     public void onUserLocationChanged(@NonNull LatLng myNewLocation) {
-        LogUtil.e("onUserLocationChanged() + " + myNewLocation.toString());
         googleMapViewHelper.updateUserLocation(myNewLocation);
+        LogUtil.e("onUserLocationChanged() + " + myNewLocation.toString());
     }
 
     @Override
     public void onGPSSignalAppeared() {
-        LogUtil.e("onGPSSignalAppeared()");
         btMyLocation.setVisibility(View.VISIBLE);
+        LogUtil.e("onGPSSignalAppeared()");
     }
 
     @Override
     public void onGPSSignalDisappeared() {
-        LogUtil.e("onGPSSignalDisappeared()");
         btMyLocation.setVisibility(View.GONE);
+        LogUtil.e("onGPSSignalDisappeared()");
     }
 
     private void askUserAboutGPS() {

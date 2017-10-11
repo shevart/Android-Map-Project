@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.shevart.google_map.MainActivity">
+    tools:context="com.shevart.google_map.ui.screens.main.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,7 +79,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.shevart.google_map.MainActivity" />
+            tools:context="com.shevart.google_map.ui.screens.main.MainActivity" />
 
         <Button
             android:id="@+id/btCreateRoute"
