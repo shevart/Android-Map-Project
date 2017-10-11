@@ -18,7 +18,8 @@ public class PermissionsUtils {
         };
 
         public static boolean isNeedRequest(@NonNull Context context) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return false;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                return false;
             final int permissionCheck = ContextCompat.checkSelfPermission(context,
                     Manifest.permission.ACCESS_FINE_LOCATION);
             return !(permissionCheck == PackageManager.PERMISSION_GRANTED);

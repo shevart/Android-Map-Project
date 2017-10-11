@@ -2,4 +2,8 @@
     <string name="app_name">Android-Map-Project</string>
     <string name="create_route">Проложить маршрут</string>
     <string name="title_activity_maps">Map</string>
+    <string name="attention">Внимание</string>
+    <string name="ask_gps_turn_on_msg">У вас выключен GPS, включить его?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 </resources>
