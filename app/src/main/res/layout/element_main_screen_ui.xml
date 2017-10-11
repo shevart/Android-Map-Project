@@ -22,12 +22,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_edittext_bg"
-                android:longClickable="false"
                 android:hint="@string/start_trip_route"
-                android:textColorHint="@color/grey_light"
                 android:lines="2"
+                android:longClickable="false"
+                android:paddingRight="@dimen/big_dimen"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/grey_light"
                 android:textSize="12sp"
-                android:textColor="@android:color/white" />
+                android:textColorHighlight="@android:color/transparent"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
 
             <ImageView
                 android:id="@+id/ivRouteStart"
@@ -49,13 +52,16 @@
                 android:id="@+id/etRouteEnd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:longClickable="false"
+                android:background="@drawable/selector_edittext_bg"
                 android:hint="@string/end_trip_route"
+                android:lines="2"
+                android:longClickable="false"
+                android:paddingRight="@dimen/big_dimen"
+                android:textColor="@android:color/white"
+                android:textColorHighlight="@android:color/transparent"
                 android:textColorHint="@color/grey_light"
                 android:textSize="12sp"
-                android:lines="2"
-                android:background="@drawable/selector_edittext_bg"
-                android:textColor="@android:color/white" />
+                tools:ignore="RtlHardcoded" />
 
             <ImageView
                 android:id="@+id/ivRouteEnd"
@@ -95,9 +101,9 @@
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:layout_gravity="right"
-            android:padding="@dimen/base_dimen"
             android:layout_margin="@dimen/pre_double_dimen"
             android:background="@drawable/shape_blue_circle"
+            android:padding="@dimen/base_dimen"
             android:visibility="gone"
             app:srcCompat="@drawable/wrapper_ic_gps_fixed_white"
             tools:ignore="RtlHardcoded" />

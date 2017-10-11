@@ -6,10 +6,12 @@ import com.shevart.google_map.data.AsyncDataCallback;
 import com.shevart.google_map.util.LogUtil;
 import com.shevart.google_map.util.NetUtils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 
@@ -56,7 +58,7 @@ class NetRequestExecutorThread extends Thread {
             }
             stream = connection.getInputStream();
             if (stream != null) {
-                result = readStream(stream, 15000);
+                result = readStream(stream);
             }
         } finally {
             if (stream != null)
@@ -85,19 +87,19 @@ class NetRequestExecutorThread extends Thread {
         }
     }
 
-    private String readStream(InputStream stream, int maxReadSize)
-            throws IOException {
-        final Reader reader = new InputStreamReader(stream, "UTF-8");
-        char[] rawBuffer = new char[maxReadSize];
-        int readSize;
-        final StringBuilder buffer = new StringBuilder();
-        while (((readSize = reader.read(rawBuffer)) != -1) && maxReadSize > 0) {
-            if (readSize > maxReadSize) {
-                readSize = maxReadSize;
+    private String readStream(@NonNull InputStream stream) throws IOException {
+        StringBuilder resultBuilder = new StringBuilder();
+        BufferedReader bReader = null;
+        try {
+            bReader = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+            String line;
+            while ((line = bReader.readLine()) != null) {
+                resultBuilder.append(line);
             }
-            buffer.append(rawBuffer, 0, readSize);
-            maxReadSize -= readSize;
+            return resultBuilder.toString();
+        } finally {
+            if (bReader != null)
+                bReader.close();
         }
-        return buffer.toString();
     }
 }

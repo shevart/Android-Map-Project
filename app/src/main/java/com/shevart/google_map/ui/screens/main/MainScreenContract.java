@@ -1,6 +1,7 @@
 package com.shevart.google_map.ui.screens.main;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.shevart.google_map.models.TripPoint;
@@ -12,6 +13,12 @@ interface MainScreenContract {
         void onStartTripPointCoordinatesSelected(@NonNull LatLng latLng);
 
         void onEndTripPointCoordinatesSelected(@NonNull LatLng latLng);
+
+        @Nullable
+        TripPoint getStartTripPoint();
+
+        @Nullable
+        TripPoint getEndTripPoint();
     }
 
     interface View extends BaseView {

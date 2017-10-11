@@ -13,6 +13,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.shevart.google_map.R;
 import com.shevart.google_map.location.UserLocation;
 import com.shevart.google_map.location.UserLocationManager;
@@ -26,9 +27,8 @@ import com.shevart.google_map.util.UiNotificationsUtils;
 import com.shevart.google_map.util.UiUtil;
 
 @SuppressWarnings("FieldCanBeLocal")
-public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, MainScreenContract.View> implements MainScreenContract.View,
-        OnMapReadyCallback,
-        UserLocationManager.LocationEventsListener {
+public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, MainScreenContract.View>
+        implements MainScreenContract.View, OnMapReadyCallback, UserLocationManager.LocationEventsListener {
     private static final int LOCATION_PERMISSION_CODE = 111;
 
     private UserLocation userLocationManager;
@@ -172,10 +172,25 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
                 onMapPointSelected(latLng);
             }
         });
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if (googleMapViewHelper.isUserLocation(marker)
+                        && userLocationManager.getLastLocation() != null) {
+                    onMapPointSelected(userLocationManager.getLastLocation());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void onMapPointSelected(@NonNull LatLng latLng) {
-
+        if (etRouteStart.hasFocus()) {
+            getPresenter().onStartTripPointCoordinatesSelected(latLng);
+        } else {
+            getPresenter().onEndTripPointCoordinatesSelected(latLng);
+        }
     }
 
     @Override
@@ -233,12 +248,16 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
 
     @Override
     public void onStartTripRouteSelected(@NonNull TripPoint tripPoint) {
-
+        etRouteStart.setText(tripPoint.getAddress());
+        googleMapViewHelper.showTripRouteView(getPresenter().getStartTripPoint(),
+                getPresenter().getEndTripPoint());
     }
 
     @Override
     public void onEndTripRouteSelected(@NonNull TripPoint tripPoint) {
-
+        etRouteEnd.setText(tripPoint.getAddress());
+        googleMapViewHelper.showTripRouteView(getPresenter().getStartTripPoint(),
+                getPresenter().getEndTripPoint());
     }
 
     @Override

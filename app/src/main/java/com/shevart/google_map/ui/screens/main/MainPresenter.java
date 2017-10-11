@@ -1,6 +1,7 @@
 package com.shevart.google_map.ui.screens.main;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.shevart.google_map.data.AsyncDataCallback;
@@ -12,11 +13,11 @@ import com.shevart.google_map.util.ErrorUtil;
 import static com.shevart.google_map.util.Util.checkNonNull;
 import static com.shevart.google_map.util.Util.isNullOrEmpty;
 
-public class MainPresenter extends AbsPresenter<MainScreenContract.View>
+class MainPresenter extends AbsPresenter<MainScreenContract.View>
         implements MainScreenContract.Presenter {
     private Net net;
 
-    public MainPresenter(@NonNull Net net) {
+    MainPresenter(@NonNull Net net) {
         checkNonNull(net);
         this.net = net;
     }
@@ -84,6 +85,18 @@ public class MainPresenter extends AbsPresenter<MainScreenContract.View>
                 }
             }
         });
+    }
+
+    @Nullable
+    @Override
+    public TripPoint getStartTripPoint() {
+        return startTripPoint;
+    }
+
+    @Nullable
+    @Override
+    public TripPoint getEndTripPoint() {
+        return endTripPoint;
     }
 
     private boolean isValidPlaceWithErrorAlert(@NonNull TripPoint tripPoint) {
