@@ -13,9 +13,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.shevart.google_map.data.AsyncDataCallback;
 import com.shevart.google_map.data.net.NetManager;
 import com.shevart.google_map.location.UserLocation;
 import com.shevart.google_map.location.UserLocationManager;
+import com.shevart.google_map.models.TripPoint;
 import com.shevart.google_map.ui.base.AbsActivity;
 import com.shevart.google_map.ui.google_map.GoogleMapViewHelper;
 import com.shevart.google_map.util.LogUtil;
@@ -77,7 +79,18 @@ public class MainActivity extends AbsActivity implements OnMapReadyCallback,
 
         // TODO: 11.10.17 remove after test
         NetManager netManager = new NetManager();
-        netManager.test();
+        LatLng latLng = new LatLng(46.977529, 32.021110);
+        netManager.getPlaceByCoordinates(getString(R.string.google_place_api_key), latLng, new AsyncDataCallback<TripPoint>() {
+            @Override
+            public void onResult(@NonNull TripPoint data) {
+                UiNotificationsUtils.showDevMessage(MainActivity.this, data.getAddress());
+            }
+
+            @Override
+            public void onError(@NonNull Exception e) {
+                LogUtil.e(e);
+            }
+        });
     }
 
     @Override

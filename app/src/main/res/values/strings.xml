@@ -7,4 +7,6 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="turn_on_gps_on_settings">Включите GPS в Настройках!</string>
+    <string name="end_trip_route">Куда</string>
+    <string name="start_trip_route">Откуда</string>
 </resources>

@@ -2,24 +2,22 @@ package com.shevart.google_map.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import static com.shevart.google_map.util.Util.checkNonNull;
-
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class TripPoint implements Parcelable {
     private String name;
     private LatLng latLng;
     private TripPointType pointType;
+    private String address;
 
-    public TripPoint(@Nullable LatLng latLng, @Nullable String name, @NonNull TripPointType tripPointType) {
-        checkNonNull(tripPointType);
-        this.latLng = latLng;
-        this.name = name;
-        this.pointType = tripPointType;
+    public enum TripPointType {
+        MAP_POINT,
+        CURRENT_LOCATION
+    }
+
+    public TripPoint() {
     }
 
     public String getName() {
@@ -42,9 +40,16 @@ public class TripPoint implements Parcelable {
         this.name = name;
     }
 
-    public enum TripPointType {
-        MAP_POINT,
-        CURRENT_LOCATION
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPointType(TripPointType pointType) {
+        this.pointType = pointType;
     }
 
     @Override
@@ -57,6 +62,7 @@ public class TripPoint implements Parcelable {
         dest.writeString(this.name);
         dest.writeParcelable(this.latLng, flags);
         dest.writeInt(this.pointType == null ? -1 : this.pointType.ordinal());
+        dest.writeString(this.address);
     }
 
     protected TripPoint(Parcel in) {
@@ -64,6 +70,7 @@ public class TripPoint implements Parcelable {
         this.latLng = in.readParcelable(LatLng.class.getClassLoader());
         int tmpPointType = in.readInt();
         this.pointType = tmpPointType == -1 ? null : TripPointType.values()[tmpPointType];
+        this.address = in.readString();
     }
 
     public static final Creator<TripPoint> CREATOR = new Creator<TripPoint>() {

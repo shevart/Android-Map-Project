@@ -3,25 +3,28 @@ package com.shevart.google_map.data.net;
 import android.support.annotation.NonNull;
 
 import com.shevart.google_map.data.AsyncDataCallback;
+import com.shevart.google_map.util.LogUtil;
 import com.shevart.google_map.util.NetUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 
 import javax.net.ssl.HttpsURLConnection;
 
 import static com.shevart.google_map.util.Util.checkNonNull;
 
-class NetRequestThread extends Thread {
+class NetRequestExecutorThread extends Thread {
     private NetRequest netRequest;
     private AsyncDataCallback<String> callback;
     private NetBridge netBridge;
 
-    NetRequestThread(@NonNull NetRequest netRequest,
-                     @NonNull AsyncDataCallback<String> callback,
-                     @NonNull NetBridge netBridge) {
+    NetRequestExecutorThread(@NonNull NetRequest netRequest,
+                             @NonNull AsyncDataCallback<String> callback,
+                             @NonNull NetBridge netBridge) {
         checkNonNull(netRequest);
         checkNonNull(callback);
         this.netRequest = netRequest;
@@ -42,7 +45,7 @@ class NetRequestThread extends Thread {
     @SuppressWarnings("ConstantConditions")
     private String executeRequest(@NonNull NetRequest netRequest) throws IOException {
         InputStream stream = null;
-        HttpsURLConnection connection = null;
+        HttpURLConnection connection = null;
         String result = null;
         try {
             connection = initConnection(netRequest);
@@ -64,13 +67,22 @@ class NetRequestThread extends Thread {
         return result;
     }
 
-    private HttpsURLConnection initConnection(@NonNull NetRequest netRequest) throws IOException {
-        final HttpsURLConnection connection = (HttpsURLConnection) NetUtils.convertString(netRequest.getUrl()).openConnection();
+    private HttpURLConnection initConnection(@NonNull NetRequest netRequest) throws IOException {
+        final HttpURLConnection connection = startConnection(netRequest.getUrl());
         connection.setReadTimeout(10000);
         connection.setConnectTimeout(10000);
         connection.setRequestMethod(NetUtils.convertNetRequestType(netRequest.getType()));
         connection.setDoInput(true);
         return connection;
+    }
+
+    private HttpURLConnection startConnection(@NonNull String url) throws IOException {
+        LogUtil.e(url);
+        if (url.contains("https")) {
+            return (HttpsURLConnection) NetUtils.convertString(netRequest.getUrl()).openConnection();
+        } else {
+            return (HttpURLConnection) NetUtils.convertString(netRequest.getUrl()).openConnection();
+        }
     }
 
     private String readStream(InputStream stream, int maxReadSize)
