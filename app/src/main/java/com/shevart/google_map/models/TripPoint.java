@@ -53,7 +53,6 @@ public class TripPoint implements Parcelable {
     protected TripPoint(Parcel in) {
         this.name = in.readString();
         this.latLng = in.readParcelable(LatLng.class.getClassLoader());
-        int tmpPointType = in.readInt();
         this.address = in.readString();
     }
 

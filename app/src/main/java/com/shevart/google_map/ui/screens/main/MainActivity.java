@@ -22,6 +22,7 @@ import com.shevart.google_map.location.UserLocationManager;
 import com.shevart.google_map.models.TripPoint;
 import com.shevart.google_map.ui.base.AbsMVPActivity;
 import com.shevart.google_map.ui.google_map.GoogleMapViewHelper;
+import com.shevart.google_map.util.BundleUtils;
 import com.shevart.google_map.util.Launcher;
 import com.shevart.google_map.util.LogUtil;
 import com.shevart.google_map.util.PermissionsUtils;
@@ -154,10 +155,10 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Launcher.SELECT_START_TRIP_POINT_FROM_HISTORY_CODE:
-                    UiNotificationsUtils.showDevMessage(this, "start");
+                    getPresenter().onStartTripPointSelectedFromHistory(BundleUtils.getTripPoint(data));
                     break;
                 case Launcher.SELECT_END_TRIP_POINT_FROM_HISTORY_CODE:
-                    UiNotificationsUtils.showDevMessage(this, "end");
+                    getPresenter().onEndTripPointSelectedFromHistory(BundleUtils.getTripPoint(data));
                     break;
             }
         }

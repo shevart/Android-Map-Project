@@ -22,12 +22,13 @@ At this project I don't use any third libraries besides libs from Google.
 - *Route request to Google API...DONE*
 - *Draw route between start-end points...DONE*
 - *Add second screen with history of addresses...DONE*
-- *Create history screen UI...DONE
+- *Create history screen UI...DONE*
 - *Add select place from history logic...DONE*
 - *Add DatabaseManager for save history...DONE*
 - *Add methods to databaseManager for work with DB...DONE*
 - *Save tripPoints after selecting in DB...DONE*
-- Add logic onSelectPoint(...) to MainScreen
+- *Add logic onSelectPoint(...) to MainScreen...DONE*
+- Add button Look to route
 - Refactor and cleanUp code
 - Add PresenterManager for save presenters even Activity was destroyed
 

@@ -13,7 +13,7 @@ public class BundleUtils {
         intent.putExtra(TRIP_POINT_KEY, tripPoint);
     }
 
-    public static int getTripPoint(@NonNull Intent intent) {
+    public static TripPoint getTripPoint(@NonNull Intent intent) {
         return intent.getParcelableExtra(TRIP_POINT_KEY);
     }
 }

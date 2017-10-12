@@ -95,6 +95,18 @@ class MainPresenter extends AbsPresenter<MainScreenContract.View>
     }
 
     @Override
+    public void onStartTripPointSelectedFromHistory(@NonNull TripPoint tripPoint) {
+        startTripPoint = tripPoint;
+        getView().onStartTripRouteSelected(startTripPoint);
+    }
+
+    @Override
+    public void onEndTripPointSelectedFromHistory(@NonNull TripPoint tripPoint) {
+        endTripPoint = tripPoint;
+        getView().onEndTripRouteSelected(endTripPoint);
+    }
+
+    @Override
     public void drawRoute() {
         if (startTripPoint == null || endTripPoint == null) {
             getView().showErrorDrawRoute();

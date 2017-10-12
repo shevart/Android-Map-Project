@@ -15,6 +15,10 @@ interface MainScreenContract {
 
         void onEndTripPointCoordinatesSelected(@NonNull LatLng latLng);
 
+        void onStartTripPointSelectedFromHistory(@NonNull TripPoint tripPoint);
+
+        void onEndTripPointSelectedFromHistory(@NonNull TripPoint tripPoint);
+
         void drawRoute();
 
         @Nullable
