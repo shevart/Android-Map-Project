@@ -97,7 +97,7 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
         super.onResume();
         userLocationManager.addLocationEventsListener(this);
         if (SystemUtils.GPS.isGPSEnabled(this)) {
-            btMyLocation.setVisibility(View.VISIBLE);
+            btMyLocation.setImageResource(R.drawable.wrapper_ic_gps_not_fixed_white);
             userLocationManager.requestLastUserLocation(this);
         }
     }
@@ -187,8 +187,11 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
     }
 
     private void myGPSPositionClick() {
-        LogUtil.e("myGPSPositionClick()");
-        googleMapViewHelper.showUserLocation();
+        if (SystemUtils.GPS.isGPSEnabled(this)) {
+            googleMapViewHelper.showUserLocation();
+        } else {
+            askUserAboutGPS();
+        }
     }
 
     @Override
@@ -224,18 +227,23 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
     @Override
     public void onUserLocationChanged(@NonNull LatLng myNewLocation) {
         googleMapViewHelper.updateUserLocation(myNewLocation);
+        btMyLocation.setImageResource(R.drawable.wrapper_ic_gps_fixed_white);
         LogUtil.e("onUserLocationChanged() + " + myNewLocation.toString());
     }
 
     @Override
     public void onGPSSignalAppeared() {
-        btMyLocation.setVisibility(View.VISIBLE);
+        btMyLocation.setImageResource(R.drawable.wrapper_ic_gps_fixed_white);
         LogUtil.e("onGPSSignalAppeared()");
     }
 
     @Override
     public void onGPSSignalDisappeared() {
-        btMyLocation.setVisibility(View.GONE);
+        if (SystemUtils.GPS.isGPSEnabled(this)) {
+            btMyLocation.setImageResource(R.drawable.wrapper_ic_gps_not_fixed_white);
+        } else {
+            btMyLocation.setImageResource(R.drawable.wrapper_ic_gps_off_white);
+        }
         googleMapViewHelper.hideUserLocation();
         LogUtil.e("onGPSSignalDisappeared()");
     }

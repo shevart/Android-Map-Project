@@ -11,6 +11,9 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+/***
+ *  Example of manual JSON parsing.
+ */
 public class NetResponseParseUtil {
     public static TripPoint stringToTripPoint(@NonNull String response) throws JSONException {
         List<GoogleGeocodedPlace> places = JsonParseUtil.parseGoogleGeocodedPlaces(new JSONObject(response));
