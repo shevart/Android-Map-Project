@@ -1,6 +1,7 @@
 package com.shevart.google_map.ui.screens.main;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -144,6 +145,21 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Launcher.SELECT_START_TRIP_POINT_FROM_HISTORY_CODE:
+                    UiNotificationsUtils.showDevMessage(this, "start");
+                    break;
+                case Launcher.SELECT_END_TRIP_POINT_FROM_HISTORY_CODE:
+                    UiNotificationsUtils.showDevMessage(this, "end");
+                    break;
+            }
         }
     }
 

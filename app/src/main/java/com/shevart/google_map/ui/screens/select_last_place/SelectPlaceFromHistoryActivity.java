@@ -1,5 +1,6 @@
 package com.shevart.google_map.ui.screens.select_last_place;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,9 @@ import android.view.View;
 import com.shevart.google_map.R;
 import com.shevart.google_map.models.TripPoint;
 import com.shevart.google_map.ui.base.AbsMVPActivity;
+import com.shevart.google_map.util.BundleUtils;
+import com.shevart.google_map.util.Launcher;
+import com.shevart.google_map.util.LogUtil;
 
 import java.util.List;
 
@@ -64,6 +68,9 @@ public class SelectPlaceFromHistoryActivity extends AbsMVPActivity<SelectLastPla
 
     @Override
     public void onTripPointSelected(@NonNull TripPoint tripPoint) {
-
+        Intent result = new Intent();
+        BundleUtils.setTripPoint(result, tripPoint);
+        setResult(RESULT_OK, result);
+        finish();
     }
 }

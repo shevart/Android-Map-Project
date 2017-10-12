@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
-    android:paddingRight="@dimen/double_dimen"
+    android:paddingBottom="0dp"
     android:paddingLeft="@dimen/double_dimen"
-    android:paddingTop="@dimen/pre_double_dimen"
-    android:paddingBottom="@dimen/pre_double_dimen"
+    android:paddingRight="@dimen/double_dimen"
+    android:paddingTop="@dimen/double_dimen"
     android:orientation="vertical">
 
     <TextView
