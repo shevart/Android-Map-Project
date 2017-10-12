@@ -61,7 +61,7 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
         }
     }
 
-    public void showUserLocation() {
+    public void moveToUserLocation() {
         if (currentLocationMarker != null) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocationMarker.getPosition()));
             googleMap.animateCamera(CameraUpdateFactory.zoomTo(AREA_ZOOM_LEVEL), 2000, null);
@@ -84,9 +84,9 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
 
         googleMap.clear();
         if (startTripPoint != null) {
-            showTripPointOnTheMap(startTripPoint);
+            displayTripPointOnTheMap(startTripPoint);
         } else if (finishTripPoint != null) {
-            showTripPointOnTheMap(finishTripPoint);
+            displayTripPointOnTheMap(finishTripPoint);
         }
 
         if (lastLatLng != null) {
@@ -94,11 +94,24 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
         }
     }
 
+    public void moveToTripPoints(@Nullable TripPoint start, @Nullable TripPoint end) {
+        if (start != null && end != null) {
+            MapUtils.moveCameraToStartEndPoints(context, googleMap, start, end);
+            return;
+        }
+
+        if (start != null) {
+            moveCameraToTripPoint(start);
+        } else if (end != null) {
+            moveCameraToTripPoint(end);
+        }
+    }
+
     public void drawRouteBetweenTwoTripPoints(@NonNull PolylineOptions polylineOptions) {
         MapUtils.drawTripRoute(context, googleMap, polylineOptions);
     }
 
-    private void showTripPointOnTheMap(@NonNull TripPoint tripPoint) {
+    private void displayTripPointOnTheMap(@NonNull TripPoint tripPoint) {
         addPointToMapAndZoom(MapUtils.createMarkerOptions(
                 tripPoint.getLatLng(),
                 tripPoint.getName(),
@@ -111,9 +124,14 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(STREETS_ZOOM_LEVEL), 2000, null);
     }
 
+    private void moveCameraToTripPoint(@NonNull TripPoint tripPoint) {
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(tripPoint.getLatLng()));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(STREETS_ZOOM_LEVEL), 2000, null);
+    }
+
     private void showTwoPointsWithTripRouteOnTheMap(@NonNull TripPoint startTripPoint,
                                                     @NonNull TripPoint finishTripPoint) {
 
-        MapUtils.showFromToPlacesOnTheMap(context, googleMap, startTripPoint, finishTripPoint);
+        MapUtils.displayStartEndPointsOnTheMap(context, googleMap, startTripPoint, finishTripPoint);
     }
 }

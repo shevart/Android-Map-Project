@@ -192,7 +192,7 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
 
     private void myGPSPositionClick() {
         if (SystemUtils.GPS.isGPSEnabled(this)) {
-            googleMapViewHelper.showUserLocation();
+            googleMapViewHelper.moveToUserLocation();
         } else {
             askUserAboutGPS();
         }
@@ -283,8 +283,9 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
             UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_set_end_trip_point));
             return;
         }
-
-
+        googleMapViewHelper.moveToTripPoints(
+                getPresenter().getStartTripPoint(),
+                getPresenter().getEndTripPoint());
     }
 
     @Override

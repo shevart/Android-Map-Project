@@ -37,18 +37,25 @@ public class MapUtils {
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_my_location_black_24dp));
     }
 
-    public static void showFromToPlacesOnTheMap(@NonNull Context context,
-                                                @NonNull GoogleMap googleMap,
-                                                @NonNull TripPoint startTripPoint,
-                                                @NonNull TripPoint finishTripPoint) {
+    public static void displayStartEndPointsOnTheMap(@NonNull Context context,
+                                                     @NonNull GoogleMap googleMap,
+                                                     @NonNull TripPoint startTripPoint,
+                                                     @NonNull TripPoint finishTripPoint) {
         googleMap.clear();
-        LatLngBounds bounds = createLatLngBoundsByPoints(startTripPoint.getLatLng(), finishTripPoint.getLatLng());
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, getPadding(context)));
+        moveCameraToStartEndPoints(context, googleMap, startTripPoint, finishTripPoint);
 
         googleMap.addMarker(createMarkerOptions(startTripPoint.getLatLng(),
                 startTripPoint.getName(), R.drawable.ic_location_on_black_24dp));
         googleMap.addMarker(createMarkerOptions(finishTripPoint.getLatLng(),
                 finishTripPoint.getName(), R.drawable.ic_location_on_black_24dp));
+    }
+
+    public static void moveCameraToStartEndPoints(@NonNull Context context,
+                                                  @NonNull GoogleMap googleMap,
+                                                  @NonNull TripPoint startTripPoint,
+                                                  @NonNull TripPoint finishTripPoint) {
+        LatLngBounds bounds = createLatLngBoundsByPoints(startTripPoint.getLatLng(), finishTripPoint.getLatLng());
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, getPadding(context)));
     }
 
     private static int getPadding(@NonNull Context context) {
