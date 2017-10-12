@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.shevart.google_map.R;
 import com.shevart.google_map.models.TripPoint;
+import com.shevart.google_map.models.google_route.GoogleMapRouteStep;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +108,21 @@ public class MapUtils {
         }
 
         return poly;
+    }
+
+    public static String latLngToString(@NonNull LatLng latLng) {
+        return latLng.latitude + "," + latLng.longitude;
+    }
+
+    public static PolylineOptions createPolyline(@NonNull List<GoogleMapRouteStep> steps) {
+        PolylineOptions polylineOptions = new PolylineOptions();
+        for (GoogleMapRouteStep step : steps) {
+            List<LatLng> stepPoints = MapUtils.getPointsFromEncodedPolyline(step.getPolyline().getPoints());
+            for (LatLng latLng : stepPoints) {
+                polylineOptions.add(latLng);
+            }
+        }
+        return polylineOptions;
     }
 }
 

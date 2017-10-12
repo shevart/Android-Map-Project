@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.shevart.google_map.data.AsyncDataCallback;
 import com.shevart.google_map.data.net.Net;
 import com.shevart.google_map.models.TripPoint;
@@ -85,6 +86,34 @@ class MainPresenter extends AbsPresenter<MainScreenContract.View>
                 }
             }
         });
+    }
+
+    @Override
+    public void drawRoute() {
+        if (startTripPoint == null || endTripPoint == null) {
+            getView().showErrorDrawRoute();
+            return;
+        }
+
+        getView().showProgress();
+        net.getRouteByCoordinates(startTripPoint.getLatLng(), endTripPoint.getLatLng(),
+                new AsyncDataCallback<PolylineOptions>() {
+                    @Override
+                    public void onResult(@NonNull PolylineOptions data) {
+                        if (isViewAttach()) {
+                            getView().hideProgress();
+                            getView().drawRoute(data);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Exception e) {
+                        if (isViewAttach()) {
+                            getView().hideProgress();
+                            getView().showError(ErrorUtil.convert(e));
+                        }
+                    }
+                });
     }
 
     @Nullable

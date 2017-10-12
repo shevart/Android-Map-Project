@@ -14,6 +14,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.shevart.google_map.R;
 import com.shevart.google_map.location.UserLocation;
 import com.shevart.google_map.location.UserLocationManager;
@@ -21,6 +22,7 @@ import com.shevart.google_map.models.TripPoint;
 import com.shevart.google_map.ui.base.AbsMVPActivity;
 import com.shevart.google_map.ui.google_map.GoogleMapViewHelper;
 import com.shevart.google_map.util.LogUtil;
+import com.shevart.google_map.util.MapUtils;
 import com.shevart.google_map.util.PermissionsUtils;
 import com.shevart.google_map.util.SystemUtils;
 import com.shevart.google_map.util.UiNotificationsUtils;
@@ -155,7 +157,15 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
     }
 
     private void createRoute() {
-        UiNotificationsUtils.showDevMessage(this, "createRoute()");
+        if (getPresenter().getStartTripPoint() == null) {
+            UiNotificationsUtils.showEmptyToast(this, getString(R.string.error_alert_set_start_trip_point));
+            return;
+        }
+
+        if (getPresenter().getEndTripPoint() == null) {
+            UiNotificationsUtils.showEmptyToast(this, getString(R.string.error_alert_set_end_trip_point));
+            return;
+        }
     }
 
     private void myGPSPositionClick() {
@@ -264,5 +274,15 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
     @Override
     public void showErrorPlaceMessage() {
         UiNotificationsUtils.showEmptyToast(this, getString(R.string.error_pick_address_by_geopoint));
+    }
+
+    @Override
+    public void drawRoute(@NonNull PolylineOptions polylineOptions) {
+        googleMapViewHelper.drawRouteBetweenTwoTripPoints(polylineOptions);
+    }
+
+    @Override
+    public void showErrorDrawRoute() {
+        UiNotificationsUtils.showEmptyToast(this, getString(R.string.error_alert_route_failed));
     }
 }

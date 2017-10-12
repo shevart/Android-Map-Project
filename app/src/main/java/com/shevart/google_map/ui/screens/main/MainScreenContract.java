@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.shevart.google_map.models.TripPoint;
 import com.shevart.google_map.ui.mvp.BasePresenter;
 import com.shevart.google_map.ui.mvp.BaseView;
@@ -13,6 +14,8 @@ interface MainScreenContract {
         void onStartTripPointCoordinatesSelected(@NonNull LatLng latLng);
 
         void onEndTripPointCoordinatesSelected(@NonNull LatLng latLng);
+
+        void drawRoute();
 
         @Nullable
         TripPoint getStartTripPoint();
@@ -27,5 +30,9 @@ interface MainScreenContract {
         void onEndTripRouteSelected(@NonNull TripPoint tripPoint);
 
         void showErrorPlaceMessage();
+
+        void drawRoute(@NonNull PolylineOptions polylineOptions);
+
+        void showErrorDrawRoute();
     }
 }

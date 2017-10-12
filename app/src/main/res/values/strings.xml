@@ -12,4 +12,7 @@
     <string name="no_internet_connection">Нет интернет-соединения!</string>
     <string name="ok">Ок</string>
     <string name="error_pick_address_by_geopoint">Не удалось определеить адрес - попробуйте еще раз!</string>
+    <string name="error_alert_set_end_trip_point">Укажите конечную точку маршрута!</string>
+    <string name="error_alert_set_start_trip_point">Укажите начальную точку маршрута!</string>
+    <string name="error_alert_route_failed">Не удалось построить маршрут!</string>
 </resources>

@@ -10,6 +10,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.shevart.google_map.R;
 import com.shevart.google_map.models.TripPoint;
 import com.shevart.google_map.util.MapUtils;
@@ -84,6 +85,10 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
         }
     }
 
+    public void drawRouteBetweenTwoTripPoints(@NonNull PolylineOptions polylineOptions) {
+        MapUtils.drawTripRoute(context, googleMap, polylineOptions);
+    }
+
     private void showTripPointOnTheMap(@NonNull TripPoint tripPoint) {
         addPointToMapAndZoom(MapUtils.createMarkerOptions(
                 tripPoint.getLatLng(),
@@ -101,10 +106,5 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
                                                     @NonNull TripPoint finishTripPoint) {
 
         MapUtils.showFromToPlacesOnTheMap(context, googleMap, startTripPoint, finishTripPoint);
-        drawRouteBetweenTwoTripPoints(startTripPoint, finishTripPoint);
-    }
-
-    private void drawRouteBetweenTwoTripPoints(@NonNull TripPoint startTripPoint, @NonNull TripPoint finishTripPoint) {
-        // TODO: 12.10.17 handle it!
     }
 }

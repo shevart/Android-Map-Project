@@ -9,7 +9,7 @@ import com.shevart.google_map.data.net.Net;
 import com.shevart.google_map.data.net.NetManager;
 
 public class MapProjectApplication extends Application implements App, TokenProvider {
-    private NetManager netManager;
+    private Net netManager;
 
     @Override
     public void onCreate() {

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.shevart.google_map.app.TokenProvider;
 import com.shevart.google_map.data.AsyncDataCallback;
 import com.shevart.google_map.models.TripPoint;
+import com.shevart.google_map.util.LogUtil;
+import com.shevart.google_map.util.MapUtils;
 import com.shevart.google_map.util.SystemUtils;
 
 import java.util.concurrent.ExecutorService;
@@ -44,7 +47,19 @@ public class NetManager implements Net {
                 NetCallbackResponseParseWrapper.wrapCallbackForPlaceByCoordinates(callback));
     }
 
+    @Override
+    public void getRouteByCoordinates(@NonNull LatLng start, @NonNull LatLng end,
+                                      @NonNull AsyncDataCallback<PolylineOptions> callback) {
+        NetRequest request = NetRequestHelper.forRouteByCoordinates(
+                tokenProvider.getGooglePlaceWebApiKey(),
+                MapUtils.latLngToString(start),
+                MapUtils.latLngToString(end));
+
+        executeNetRequest(request,
+                NetCallbackResponseParseWrapper.wrapCallbackForRouteByCoordinates(callback));
+    }
+
     private void executeNetRequest(@NonNull NetRequest netRequest, @NonNull AsyncDataCallback<String> callback) {
-        executorService.execute(new NetRequestExecutorThread(netRequest, callback, netBridge));
+        executorService.execute(new NetRequestExecutorRunnable(netRequest, callback, netBridge));
     }
 }

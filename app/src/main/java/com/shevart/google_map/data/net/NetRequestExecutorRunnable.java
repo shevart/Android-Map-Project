@@ -19,14 +19,14 @@ import javax.net.ssl.HttpsURLConnection;
 
 import static com.shevart.google_map.util.Util.checkNonNull;
 
-class NetRequestExecutorThread extends Thread {
+class NetRequestExecutorRunnable implements Runnable {
     private NetRequest netRequest;
     private AsyncDataCallback<String> callback;
     private NetBridge netBridge;
 
-    NetRequestExecutorThread(@NonNull NetRequest netRequest,
-                             @NonNull AsyncDataCallback<String> callback,
-                             @NonNull NetBridge netBridge) {
+    NetRequestExecutorRunnable(@NonNull NetRequest netRequest,
+                               @NonNull AsyncDataCallback<String> callback,
+                               @NonNull NetBridge netBridge) {
         checkNonNull(netRequest);
         checkNonNull(callback);
         this.netRequest = netRequest;
@@ -39,7 +39,7 @@ class NetRequestExecutorThread extends Thread {
         try {
             String result = executeRequest(netRequest);
             netBridge.postResponse(result, callback);
-        } catch (IOException e) {
+        } catch (Exception e) {
             netBridge.postError(e, callback);
         }
     }
