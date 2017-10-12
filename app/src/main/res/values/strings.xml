@@ -17,4 +17,5 @@
     <string name="error_alert_route_failed">Не удалось построить маршрут!</string>
     <string name="no_name">Без имени</string>
     <string name="empty_history_msg">В истории пока пусто</string>
+    <string name="history">История</string>
 </resources>

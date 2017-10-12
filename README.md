@@ -21,18 +21,19 @@ At this project I don't use any third libraries besides libs from Google.
 - *Create selecting address fot trip point (start point/end point)...DONE*
 - *Route request to Google API...DONE*
 - *Draw route between start-end points...DONE*
-- Add second screen with history of addresses
-- Create history screen UI
-- Add select place from history logic
-- Add DatabaseManager for save history 
-- Add methods to databaseManager for work with DB
-- Save tripPoints after selecting in DB
+- *Add second screen with history of addresses...DONE*
+- *Create history screen UI...DONE
+- *Add select place from history logic...DONE*
+- *Add DatabaseManager for save history...DONE*
+- *Add methods to databaseManager for work with DB...DONE*
+- *Save tripPoints after selecting in DB...DONE*
+- Add logic onSelectPoint(...) to MainScreen
 - Refactor and cleanUp code
 - Add PresenterManager for save presenters even Activity was destroyed
 
 ## Additional tasks:
 - show different gps icons depends on gps state
-- splash screen
+- *splash screen...DONE*
 - hide cursor from editText fields on the main screen
 - Show important messages in dialog
 - Use styles for the same views

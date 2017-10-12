@@ -26,6 +26,7 @@ public class SelectPlaceFromHistoryActivity extends AbsMVPActivity<SelectLastPla
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_place_from_history);
         enableToolbarBackButton();
+        setTitle(getString(R.string.history));
 
         vwEmptyHistory = findViewById(R.id.llEmptyHistory);
         adapter = new TripPointsHistoryRVAdapter(this);
