@@ -19,6 +19,7 @@ public class SelectPlaceFromHistoryActivity extends AbsMVPActivity<SelectLastPla
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_place_from_history);
+        enableToolbarBackButton();
 
         adapter = new TripPointsHistoryRVAdapter(this);
         RecyclerView rvHistory = findViewById(R.id.rvHistory);
