@@ -22,7 +22,6 @@ import com.shevart.google_map.models.TripPoint;
 import com.shevart.google_map.ui.base.AbsMVPActivity;
 import com.shevart.google_map.ui.google_map.GoogleMapViewHelper;
 import com.shevart.google_map.util.LogUtil;
-import com.shevart.google_map.util.MapUtils;
 import com.shevart.google_map.util.PermissionsUtils;
 import com.shevart.google_map.util.SystemUtils;
 import com.shevart.google_map.util.UiNotificationsUtils;
@@ -138,8 +137,7 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
         switch (requestCode) {
             case LOCATION_PERMISSION_CODE:
                 boolean allowed = PermissionsUtils.UserLocationPermission.isAllowed(permissions, grantResults);
-                UiNotificationsUtils.showDevMessage(MainActivity.this, "GPS is " +
-                        (allowed ? "allowed" : "denied"));
+                LogUtil.e("GPS is " + (allowed ? "allowed" : "denied"));
                 if (allowed)
                     startUserLocationTracking();
                 break;
