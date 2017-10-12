@@ -82,7 +82,7 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
 
     @Override
     protected MainScreenContract.Presenter obtainPresenter() {
-        return new MainPresenter(getApp().getNet());
+        return new MainPresenter(getApp().getNet(), getApp().getDB());
     }
 
     @Override

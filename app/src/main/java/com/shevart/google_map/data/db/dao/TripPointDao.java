@@ -50,8 +50,8 @@ public class TripPointDao extends BaseDao {
     }
 
     private static void insertTripPoint(@NonNull SQLiteStatement statement, @NonNull TripPoint tripPoint) {
-        statement.bindString(1, tripPoint.getName());
-        statement.bindString(2, tripPoint.getAddress());
+        bindString(statement, 1, tripPoint.getName());
+        bindString(statement, 2, tripPoint.getAddress());
         statement.bindDouble(3, tripPoint.getLatLng().latitude);
         statement.bindDouble(4, tripPoint.getLatLng().longitude);
         statement.executeInsert();

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.shevart.google_map.data.AsyncDataCallback;
+import com.shevart.google_map.data.db.DB;
 import com.shevart.google_map.data.net.Net;
 import com.shevart.google_map.models.TripPoint;
 import com.shevart.google_map.ui.mvp.AbsPresenter;
@@ -16,15 +17,18 @@ import static com.shevart.google_map.util.Util.isNullOrEmpty;
 
 class MainPresenter extends AbsPresenter<MainScreenContract.View>
         implements MainScreenContract.Presenter {
-    private Net net;
-
-    MainPresenter(@NonNull Net net) {
-        checkNonNull(net);
-        this.net = net;
-    }
-
     private TripPoint startTripPoint;
     private TripPoint endTripPoint;
+
+    private Net net;
+    private DB db;
+
+    MainPresenter(@NonNull Net net, @NonNull DB db) {
+        checkNonNull(net);
+        checkNonNull(db);
+        this.net = net;
+        this.db = db;
+    }
 
     @Override
     public void onStartTripPointCoordinatesSelected(@NonNull final LatLng latLng) {
@@ -40,6 +44,7 @@ class MainPresenter extends AbsPresenter<MainScreenContract.View>
                 if (isValidPlaceWithErrorAlert(data)) {
                     startTripPoint = data;
                     startTripPoint.setLatLng(latLng);
+                    db.save(startTripPoint);
                     if (isViewAttach()) {
                         getView().hideProgress();
                         getView().onStartTripRouteSelected(startTripPoint);
@@ -71,6 +76,7 @@ class MainPresenter extends AbsPresenter<MainScreenContract.View>
                 if (isValidPlaceWithErrorAlert(data)) {
                     endTripPoint = data;
                     endTripPoint.setLatLng(latLng);
+                    db.save(endTripPoint);
                     if (isViewAttach()) {
                         getView().hideProgress();
                         getView().onEndTripRouteSelected(endTripPoint);
