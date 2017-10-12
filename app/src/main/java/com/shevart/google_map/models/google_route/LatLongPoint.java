@@ -1,6 +1,6 @@
 package com.shevart.google_map.models.google_route;
 
-public class LatLongPoint {
+class LatLongPoint {
     private double lat;
     private double lng;
 

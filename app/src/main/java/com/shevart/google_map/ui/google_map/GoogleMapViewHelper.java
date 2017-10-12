@@ -24,6 +24,7 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
     private static final int WORLD_ZOOM_LEVEL = 1;
     private static final int CONTINENT_ZOOM_LEVEL = 5;
     private static final int CITY_ZOOM_LEVEL = 10;
+    private static final int AREA_ZOOM_LEVEL = 13;
     private static final int STREETS_ZOOM_LEVEL = 15;
     private static final int BUILDINGS_ZOOM_LEVEL = 20;
 
@@ -63,7 +64,7 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
     public void showUserLocation() {
         if (currentLocationMarker != null) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocationMarker.getPosition()));
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(CITY_ZOOM_LEVEL), 2000, null);
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(AREA_ZOOM_LEVEL), 2000, null);
         }
     }
 

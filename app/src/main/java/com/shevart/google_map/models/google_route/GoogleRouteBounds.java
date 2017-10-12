@@ -1,7 +1,7 @@
 package com.shevart.google_map.models.google_route;
 
 @SuppressWarnings("unused")
-public class GoogleRouteBounds {
+class GoogleRouteBounds {
     private LatLongPoint northeast;
     private LatLongPoint southwest;
 

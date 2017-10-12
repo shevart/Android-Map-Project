@@ -1,6 +1,5 @@
 package com.shevart.google_map.models.google_route;
 
-
 import java.util.List;
 
 @SuppressWarnings({"WeakerAccess", "unused"})

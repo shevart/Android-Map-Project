@@ -1,7 +1,6 @@
 package com.shevart.google_map.models.google_route;
 
-
-public class Duration {
+class Duration {
     private String text;
 
     public String getText() {
