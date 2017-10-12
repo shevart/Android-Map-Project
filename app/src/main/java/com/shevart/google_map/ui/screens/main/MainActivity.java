@@ -166,6 +166,8 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
             UiNotificationsUtils.showEmptyToast(this, getString(R.string.error_alert_set_end_trip_point));
             return;
         }
+
+        getPresenter().drawRoute();
     }
 
     private void myGPSPositionClick() {

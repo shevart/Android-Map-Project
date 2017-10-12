@@ -17,8 +17,16 @@ import com.shevart.google_map.util.MapUtils;
 
 import static com.shevart.google_map.util.Util.checkNonNull;
 
+@SuppressWarnings("unused")
 public class GoogleMapViewHelper implements OnMapReadyCallback {
     private static final String USER_LOCATION_TAG = "userLocationTag";
+
+    private static final int WORLD_ZOOM_LEVEL = 1;
+    private static final int CONTINENT_ZOOM_LEVEL = 5;
+    private static final int CITY_ZOOM_LEVEL = 10;
+    private static final int STREETS_ZOOM_LEVEL = 15;
+    private static final int BUILDINGS_ZOOM_LEVEL = 20;
+
     private Context context;
     private GoogleMap googleMap;
 
@@ -55,7 +63,7 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
     public void showUserLocation() {
         if (currentLocationMarker != null) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocationMarker.getPosition()));
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(CITY_ZOOM_LEVEL), 2000, null);
         }
     }
 
@@ -99,7 +107,7 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
     private void addPointToMapAndZoom(@NonNull final MarkerOptions markerOptions) {
         googleMap.addMarker(markerOptions);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(markerOptions.getPosition()));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(STREETS_ZOOM_LEVEL), 2000, null);
     }
 
     private void showTwoPointsWithTripRouteOnTheMap(@NonNull TripPoint startTripPoint,

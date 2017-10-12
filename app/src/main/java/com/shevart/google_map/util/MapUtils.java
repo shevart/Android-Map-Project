@@ -53,7 +53,7 @@ public class MapUtils {
 
     private static int getPadding(@NonNull Context context) {
         int width = context.getResources().getDisplayMetrics().widthPixels;
-        return (int) (width * 0.15);
+        return (int) (width * 0.20);
     }
 
     public static LatLngBounds createLatLngBoundsByPoints(LatLng... points) {
