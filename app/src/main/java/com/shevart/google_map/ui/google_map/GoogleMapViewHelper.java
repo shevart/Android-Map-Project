@@ -61,7 +61,7 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
         }
     }
 
-    public void moveToUserLocation() {
+    public void showUserLocation() {
         if (currentLocationMarker != null) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocationMarker.getPosition()));
             googleMap.animateCamera(CameraUpdateFactory.zoomTo(AREA_ZOOM_LEVEL), 2000, null);

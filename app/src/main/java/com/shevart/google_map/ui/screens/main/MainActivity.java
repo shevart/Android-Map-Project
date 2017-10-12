@@ -86,16 +86,6 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
     }
 
     @Override
-    protected MainScreenContract.Presenter obtainPresenter() {
-        return new MainPresenter(getApp().getNet(), getApp().getDB());
-    }
-
-    @Override
-    protected MainScreenContract.View obtainView() {
-        return this;
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         userLocationManager.addLocationEventsListener(this);
@@ -109,34 +99,6 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
     protected void onPause() {
         super.onPause();
         userLocationManager.removeLocationEventsListener(this);
-    }
-
-    private void initViews() {
-        etRouteStart = findViewById(R.id.etRouteStart);
-        etRouteEnd = findViewById(R.id.etRouteEnd);
-        UiUtil.disableKeyboardOpening(etRouteStart);
-        UiUtil.disableKeyboardOpening(etRouteEnd);
-        btCreateRoute = findViewById(R.id.btCreateRoute);
-        btCreateRoute.setOnClickListener(controlPanelButtonClickListener);
-        btMyLocation = findViewById(R.id.btMyLocation);
-        btMyLocation.setOnClickListener(controlPanelButtonClickListener);
-        findViewById(R.id.btShowMyRoute).setOnClickListener(controlPanelButtonClickListener);
-        findViewById(R.id.ivRouteStart).setOnClickListener(controlPanelButtonClickListener);
-        findViewById(R.id.ivRouteEnd).setOnClickListener(controlPanelButtonClickListener);
-        progressView = findViewById(R.id.progressView);
-    }
-
-    private void startUserLocationTracking() {
-        if (PermissionsUtils.UserLocationPermission.isNeedRequest(this)) {
-            PermissionsUtils.UserLocationPermission.request(this, LOCATION_PERMISSION_CODE);
-            return;
-        }
-
-        userLocationManager.onUserLocationPermissionAccepted();
-        if (!SystemUtils.GPS.isGPSEnabled(this)) {
-            askUserAboutGPS();
-        }
-        userLocationManager.requestLastUserLocation(this);
     }
 
     @Override
@@ -168,64 +130,14 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
         }
     }
 
-    private void selectFromHistoryRoutePointStart() {
-        Launcher.ActivityComponents.startTripPointSelectFromHistory(this);
-    }
-
-    private void selectFromHistoryRoutePointEnd() {
-        Launcher.ActivityComponents.endTripPointSelectFromHistory(this);
-    }
-
-    private void createRoute() {
-        if (getPresenter().getStartTripPoint() == null) {
-            UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_set_start_trip_point));
-            return;
-        }
-
-        if (getPresenter().getEndTripPoint() == null) {
-            UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_set_end_trip_point));
-            return;
-        }
-
-        getPresenter().drawRoute();
-    }
-
-    private void myGPSPositionClick() {
-        if (SystemUtils.GPS.isGPSEnabled(this)) {
-            googleMapViewHelper.moveToUserLocation();
-        } else {
-            askUserAboutGPS();
-        }
+    @Override
+    protected MainScreenContract.Presenter obtainPresenter() {
+        return new MainPresenter(getApp().getNet(), getApp().getDB());
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        googleMapViewHelper.onMapReady(googleMap);
-        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                onMapPointSelected(latLng);
-            }
-        });
-        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                if (googleMapViewHelper.isUserLocation(marker)
-                        && userLocationManager.getLastLocation() != null) {
-                    onMapPointSelected(userLocationManager.getLastLocation());
-                    return true;
-                }
-                return false;
-            }
-        });
-    }
-
-    private void onMapPointSelected(@NonNull LatLng latLng) {
-        if (etRouteStart.hasFocus()) {
-            getPresenter().onStartTripPointCoordinatesSelected(latLng);
-        } else {
-            getPresenter().onEndTripPointCoordinatesSelected(latLng);
-        }
+    protected MainScreenContract.View obtainView() {
+        return this;
     }
 
     @Override
@@ -250,42 +162,6 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
         }
         googleMapViewHelper.hideUserLocation();
         LogUtil.e("onGPSSignalDisappeared()");
-    }
-
-    private void askUserAboutGPS() {
-        new AlertDialog.Builder(this, R.style.DialogTheme)
-                .setTitle(R.string.attention)
-                .setMessage(R.string.ask_gps_turn_on_msg)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        turnOnGPS();
-                    }
-                })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
-                .setCancelable(true)
-                .show();
-    }
-
-    private void turnOnGPS() {
-        SystemUtils.GPS.turnGPSOn(this);
-        UiNotificationsUtils.showShortToast(this, getString(R.string.turn_on_gps_on_settings));
-    }
-
-    private void showMyRouteClick() {
-        if (getPresenter().getStartTripPoint() == null
-                && getPresenter().getEndTripPoint() == null) {
-            UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_set_end_trip_point));
-            return;
-        }
-        googleMapViewHelper.moveToTripPoints(
-                getPresenter().getStartTripPoint(),
-                getPresenter().getEndTripPoint());
     }
 
     @Override
@@ -325,5 +201,130 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
     @Override
     public void showErrorDrawRoute() {
         UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_route_failed));
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMapViewHelper.onMapReady(googleMap);
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                onMapPointSelected(latLng);
+            }
+        });
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if (googleMapViewHelper.isUserLocation(marker)
+                        && userLocationManager.getLastLocation() != null) {
+                    onMapPointSelected(userLocationManager.getLastLocation());
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void initViews() {
+        etRouteStart = findViewById(R.id.etRouteStart);
+        etRouteEnd = findViewById(R.id.etRouteEnd);
+        UiUtil.disableKeyboardOpening(etRouteStart);
+        UiUtil.disableKeyboardOpening(etRouteEnd);
+        btCreateRoute = findViewById(R.id.btCreateRoute);
+        btCreateRoute.setOnClickListener(controlPanelButtonClickListener);
+        btMyLocation = findViewById(R.id.btMyLocation);
+        btMyLocation.setOnClickListener(controlPanelButtonClickListener);
+        findViewById(R.id.btShowMyRoute).setOnClickListener(controlPanelButtonClickListener);
+        findViewById(R.id.ivRouteStart).setOnClickListener(controlPanelButtonClickListener);
+        findViewById(R.id.ivRouteEnd).setOnClickListener(controlPanelButtonClickListener);
+        progressView = findViewById(R.id.progressView);
+    }
+
+    private void startUserLocationTracking() {
+        if (PermissionsUtils.UserLocationPermission.isNeedRequest(this)) {
+            PermissionsUtils.UserLocationPermission.request(this, LOCATION_PERMISSION_CODE);
+            return;
+        }
+
+        userLocationManager.onUserLocationPermissionAccepted();
+        if (!SystemUtils.GPS.isGPSEnabled(this)) {
+            askUserAboutGPS();
+        }
+        userLocationManager.requestLastUserLocation(this);
+    }
+
+    private void selectFromHistoryRoutePointStart() {
+        Launcher.ActivityComponents.startTripPointSelectFromHistory(this);
+    }
+
+    private void selectFromHistoryRoutePointEnd() {
+        Launcher.ActivityComponents.endTripPointSelectFromHistory(this);
+    }
+
+    private void createRoute() {
+        if (getPresenter().getStartTripPoint() == null) {
+            UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_set_start_trip_point));
+            return;
+        }
+
+        if (getPresenter().getEndTripPoint() == null) {
+            UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_set_end_trip_point));
+            return;
+        }
+
+        getPresenter().drawRoute();
+    }
+
+    private void myGPSPositionClick() {
+        if (SystemUtils.GPS.isGPSEnabled(this)) {
+            googleMapViewHelper.showUserLocation();
+        } else {
+            askUserAboutGPS();
+        }
+    }
+
+
+    private void onMapPointSelected(@NonNull LatLng latLng) {
+        if (etRouteStart.hasFocus()) {
+            getPresenter().onStartTripPointCoordinatesSelected(latLng);
+        } else {
+            getPresenter().onEndTripPointCoordinatesSelected(latLng);
+        }
+    }
+
+    private void askUserAboutGPS() {
+        new AlertDialog.Builder(this, R.style.DialogTheme)
+                .setTitle(R.string.attention)
+                .setMessage(R.string.ask_gps_turn_on_msg)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        turnOnGPS();
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setCancelable(true)
+                .show();
+    }
+
+    private void turnOnGPS() {
+        SystemUtils.GPS.turnGPSOn(this);
+        UiNotificationsUtils.showShortToast(this, getString(R.string.turn_on_gps_on_settings));
+    }
+
+    private void showMyRouteClick() {
+        if (getPresenter().getStartTripPoint() == null
+                && getPresenter().getEndTripPoint() == null) {
+            UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_set_end_trip_point));
+            return;
+        }
+        googleMapViewHelper.moveToTripPoints(
+                getPresenter().getStartTripPoint(),
+                getPresenter().getEndTripPoint());
     }
 }
