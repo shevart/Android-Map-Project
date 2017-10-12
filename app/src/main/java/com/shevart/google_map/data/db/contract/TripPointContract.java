@@ -23,6 +23,5 @@ public class TripPointContract extends Contract {
                 LATITUDE + COMMA +
                 LONGITUDE +
                 CLOSE + VALUES + OPEN + "(?, ?, ?, ?)" + CLOSE;
-
     }
 }
