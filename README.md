@@ -19,8 +19,8 @@ At this project I don't use any third libraries besides libs from Google.
 - *Add base MVP classes...DONE*
 - *Add MVP to MainScreen...DONE*
 - *Create selecting address fot trip point (start point/end point)...DONE*
-- Route request to Google API
-- Draw route between start-end points
+- *Route request to Google API...DONE*
+- *Draw route between start-end points...DONE*
 - Add second screen with history of addresses
 - Create history screen UI
 - Add select place from history logic
