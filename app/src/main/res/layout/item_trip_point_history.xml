@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llTripPoint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?selectableItemBackground"
+    android:paddingRight="@dimen/double_dimen"
+    android:paddingLeft="@dimen/double_dimen"
+    android:paddingTop="@dimen/pre_double_dimen"
+    android:paddingBottom="@dimen/pre_double_dimen"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTripPointName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="21sp"
+        android:maxLines="1"
+        android:fontFamily="sans-serif-medium"
+        tools:text="Name"/>
+
+    <TextView
+        android:id="@+id/tvTripPointAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:paddingTop="@dimen/base_dimen"
+        android:textSize="14sp"
+        android:maxLines="2"
+        android:fontFamily="sans-serif"
+        tools:text="Address"/>
+
+</LinearLayout>
