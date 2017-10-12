@@ -9,13 +9,7 @@ import com.google.android.gms.maps.model.LatLng;
 public class TripPoint implements Parcelable {
     private String name;
     private LatLng latLng;
-    private TripPointType pointType;
     private String address;
-
-    public enum TripPointType {
-        MAP_POINT,
-        CURRENT_LOCATION
-    }
 
     public TripPoint() {
     }
@@ -26,10 +20,6 @@ public class TripPoint implements Parcelable {
 
     public LatLng getLatLng() {
         return latLng;
-    }
-
-    public TripPointType getPointType() {
-        return pointType;
     }
 
     public void setLatLng(LatLng latLng) {
@@ -48,10 +38,6 @@ public class TripPoint implements Parcelable {
         this.address = address;
     }
 
-    public void setPointType(TripPointType pointType) {
-        this.pointType = pointType;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -61,7 +47,6 @@ public class TripPoint implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
         dest.writeParcelable(this.latLng, flags);
-        dest.writeInt(this.pointType == null ? -1 : this.pointType.ordinal());
         dest.writeString(this.address);
     }
 
@@ -69,7 +54,6 @@ public class TripPoint implements Parcelable {
         this.name = in.readString();
         this.latLng = in.readParcelable(LatLng.class.getClassLoader());
         int tmpPointType = in.readInt();
-        this.pointType = tmpPointType == -1 ? null : TripPointType.values()[tmpPointType];
         this.address = in.readString();
     }
 

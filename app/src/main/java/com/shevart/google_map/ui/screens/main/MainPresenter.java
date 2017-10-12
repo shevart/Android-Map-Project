@@ -95,6 +95,11 @@ class MainPresenter extends AbsPresenter<MainScreenContract.View>
             return;
         }
 
+        if (!net.isNetConnectionAvailable()) {
+            getView().showNoInternetConnectionError();
+            return;
+        }
+
         getView().showProgress();
         net.getRouteByCoordinates(startTripPoint.getLatLng(), endTripPoint.getLatLng(),
                 new AsyncDataCallback<PolylineOptions>() {
