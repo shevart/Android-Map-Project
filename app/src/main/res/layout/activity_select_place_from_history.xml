@@ -16,6 +16,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/empty_history_bg"
         android:gravity="center"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <TextView

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.shevart.google_map.R;
 import com.shevart.google_map.models.TripPoint;
@@ -14,6 +15,7 @@ import java.util.List;
 public class SelectPlaceFromHistoryActivity extends AbsMVPActivity<SelectLastPlaceContract.Presenter,
         SelectLastPlaceContract.View> implements SelectLastPlaceContract.View, TripPointsHistoryRVAdapter.TripPointSelectListener {
     private TripPointsHistoryRVAdapter adapter;
+    private View vwEmptyHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,7 @@ public class SelectPlaceFromHistoryActivity extends AbsMVPActivity<SelectLastPla
         setContentView(R.layout.activity_select_place_from_history);
         enableToolbarBackButton();
 
+        vwEmptyHistory = findViewById(R.id.llEmptyHistory);
         adapter = new TripPointsHistoryRVAdapter(this);
         RecyclerView rvHistory = findViewById(R.id.rvHistory);
         rvHistory.setLayoutManager(new LinearLayoutManager(this));
@@ -56,7 +59,7 @@ public class SelectPlaceFromHistoryActivity extends AbsMVPActivity<SelectLastPla
 
     @Override
     public void showEmptyHistoryAlert() {
-
+        vwEmptyHistory.setVisibility(View.VISIBLE);
     }
 
     @Override
