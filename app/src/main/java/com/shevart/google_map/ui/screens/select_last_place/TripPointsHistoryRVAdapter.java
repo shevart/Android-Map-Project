@@ -36,7 +36,7 @@ class TripPointsHistoryRVAdapter extends RecyclerView.Adapter<TripPointsHistoryR
         TripPoint point = items.get(position);
         holder.tvTripPointName.setText(!isNullOrEmpty(point.getName()) ? point.getName() :
                 holder.rootView.getContext().getString(R.string.no_name));
-        holder.tvTripPointName.setText(point.getAddress());
+        holder.tvTripPointAddress.setText(point.getAddress());
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

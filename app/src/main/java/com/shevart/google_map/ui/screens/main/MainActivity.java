@@ -21,6 +21,7 @@ import com.shevart.google_map.location.UserLocationManager;
 import com.shevart.google_map.models.TripPoint;
 import com.shevart.google_map.ui.base.AbsMVPActivity;
 import com.shevart.google_map.ui.google_map.GoogleMapViewHelper;
+import com.shevart.google_map.util.Launcher;
 import com.shevart.google_map.util.LogUtil;
 import com.shevart.google_map.util.PermissionsUtils;
 import com.shevart.google_map.util.SystemUtils;
@@ -147,11 +148,11 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
     }
 
     private void selectFromHistoryRoutePointStart() {
-        UiNotificationsUtils.showDevMessage(this, "selectFromHistoryRoutePointStart()");
+        Launcher.ActivityComponents.startTripPointSelectFromHistory(this);
     }
 
     private void selectFromHistoryRoutePointEnd() {
-        UiNotificationsUtils.showDevMessage(this, "selectFromHistoryRoutePointEnd()");
+        Launcher.ActivityComponents.endTripPointSelectFromHistory(this);
     }
 
     private void createRoute() {
