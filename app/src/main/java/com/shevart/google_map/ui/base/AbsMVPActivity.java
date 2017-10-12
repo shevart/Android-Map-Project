@@ -53,6 +53,6 @@ public abstract class AbsMVPActivity<P extends BasePresenter<V>, V extends BaseV
 
     @Override
     public void showError(@NonNull String errorMessage) {
-        UiNotificationsUtils.showEmptyToast(this, errorMessage);
+        UiNotificationsUtils.showShortToast(this, errorMessage);
     }
 }

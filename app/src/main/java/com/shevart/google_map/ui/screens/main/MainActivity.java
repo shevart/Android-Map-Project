@@ -60,6 +60,9 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
                 case R.id.btMyLocation:
                     myGPSPositionClick();
                     break;
+                case R.id.btShowMyRoute:
+                    showMyRouteClick();
+                    break;
                 default:
                     throw new IllegalArgumentException("Check it!");
             }
@@ -117,6 +120,7 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
         btCreateRoute.setOnClickListener(controlPanelButtonClickListener);
         btMyLocation = findViewById(R.id.btMyLocation);
         btMyLocation.setOnClickListener(controlPanelButtonClickListener);
+        findViewById(R.id.btShowMyRoute).setOnClickListener(controlPanelButtonClickListener);
         findViewById(R.id.ivRouteStart).setOnClickListener(controlPanelButtonClickListener);
         findViewById(R.id.ivRouteEnd).setOnClickListener(controlPanelButtonClickListener);
         progressView = findViewById(R.id.progressView);
@@ -174,12 +178,12 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
 
     private void createRoute() {
         if (getPresenter().getStartTripPoint() == null) {
-            UiNotificationsUtils.showEmptyToast(this, getString(R.string.error_alert_set_start_trip_point));
+            UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_set_start_trip_point));
             return;
         }
 
         if (getPresenter().getEndTripPoint() == null) {
-            UiNotificationsUtils.showEmptyToast(this, getString(R.string.error_alert_set_end_trip_point));
+            UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_set_end_trip_point));
             return;
         }
 
@@ -270,7 +274,17 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
 
     private void turnOnGPS() {
         SystemUtils.GPS.turnGPSOn(this);
-        UiNotificationsUtils.showEmptyToast(this, getString(R.string.turn_on_gps_on_settings));
+        UiNotificationsUtils.showShortToast(this, getString(R.string.turn_on_gps_on_settings));
+    }
+
+    private void showMyRouteClick() {
+        if (getPresenter().getStartTripPoint() == null
+                && getPresenter().getEndTripPoint() == null) {
+            UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_set_end_trip_point));
+            return;
+        }
+
+
     }
 
     @Override
@@ -286,20 +300,20 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
     @Override
     public void onStartTripRouteSelected(@NonNull TripPoint tripPoint) {
         etRouteStart.setText(tripPoint.getAddress());
-        googleMapViewHelper.showTripRouteView(getPresenter().getStartTripPoint(),
+        googleMapViewHelper.displayTripPoints(getPresenter().getStartTripPoint(),
                 getPresenter().getEndTripPoint());
     }
 
     @Override
     public void onEndTripRouteSelected(@NonNull TripPoint tripPoint) {
         etRouteEnd.setText(tripPoint.getAddress());
-        googleMapViewHelper.showTripRouteView(getPresenter().getStartTripPoint(),
+        googleMapViewHelper.displayTripPoints(getPresenter().getStartTripPoint(),
                 getPresenter().getEndTripPoint());
     }
 
     @Override
     public void showErrorPlaceMessage() {
-        UiNotificationsUtils.showEmptyToast(this, getString(R.string.error_pick_address_by_geopoint));
+        UiNotificationsUtils.showShortToast(this, getString(R.string.error_pick_address_by_geopoint));
     }
 
     @Override
@@ -309,6 +323,6 @@ public class MainActivity extends AbsMVPActivity<MainScreenContract.Presenter, M
 
     @Override
     public void showErrorDrawRoute() {
-        UiNotificationsUtils.showEmptyToast(this, getString(R.string.error_alert_route_failed));
+        UiNotificationsUtils.showShortToast(this, getString(R.string.error_alert_route_failed));
     }
 }

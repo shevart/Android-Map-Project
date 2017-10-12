@@ -76,7 +76,7 @@ public class GoogleMapViewHelper implements OnMapReadyCallback {
         return marker.getTag() == USER_LOCATION_TAG;
     }
 
-    public void showTripRouteView(@Nullable TripPoint startTripPoint, @Nullable TripPoint finishTripPoint) {
+    public void displayTripPoints(@Nullable TripPoint startTripPoint, @Nullable TripPoint finishTripPoint) {
         if (startTripPoint != null && finishTripPoint != null) {
             showTwoPointsWithTripRouteOnTheMap(startTripPoint, finishTripPoint);
             return;
