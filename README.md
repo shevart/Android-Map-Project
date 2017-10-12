@@ -28,13 +28,13 @@ At this project I don't use any third libraries besides libs from Google.
 - *Add methods to databaseManager for work with DB...DONE*
 - *Save tripPoints after selecting in DB...DONE*
 - *Add logic onSelectPoint(...) to MainScreen...DONE*
-- Add button Look to route
-- Refactor and cleanUp code
-- Add PresenterManager for save presenters even Activity was destroyed
+- *Add button Look to route...DONE*
+- *Refactor and cleanUp code...DONE*
+- Add PresenterManager for save presenters even Activity was destroyed - coming soon
 
 ## Additional tasks:
-- show different gps icons depends on gps state
+- *show different gps icons depends on gps state...DONE*
 - *splash screen...DONE*
-- hide cursor from editText fields on the main screen
+- ~hide cursor from editText fields on the main screen~ 
 - Show important messages in dialog
 - Use styles for the same views
