@@ -13,8 +13,8 @@ import java.util.Date;
  *  Class which define base operations for SQLite
  *  <br/><br/>
  */
-@SuppressWarnings("unused")
-public abstract class BaseDao {
+@SuppressWarnings({"unused", "WeakerAccess"})
+abstract class BaseDao {
     protected static boolean parseBoolean(@NonNull Cursor cursor, @NonNull final String KEY) { // 0 (false) and 1 (true)
         return cursor.getInt(cursor.getColumnIndex(KEY)) != 0;
     }

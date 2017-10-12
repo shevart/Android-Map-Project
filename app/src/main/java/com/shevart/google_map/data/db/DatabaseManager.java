@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
+import com.shevart.google_map.data.db.dao.TripPointDao;
 import com.shevart.google_map.models.TripPoint;
 
 import java.util.List;
@@ -18,11 +19,11 @@ public class DatabaseManager implements DB {
 
     @Override
     public void save(@NonNull TripPoint tripPoint) {
-
+        TripPointDao.save(database, tripPoint);
     }
 
     @Override
     public List<TripPoint> getTripPointsFromHistory(int size) {
-        return null;
+        return TripPointDao.getTripPointsFromHistory(database, size);
     }
 }

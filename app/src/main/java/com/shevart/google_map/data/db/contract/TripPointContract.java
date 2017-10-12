@@ -23,5 +23,8 @@ public class TripPointContract extends Contract {
                 LATITUDE + COMMA +
                 LONGITUDE +
                 CLOSE + VALUES + OPEN + "(?, ?, ?, ?)" + CLOSE;
+
+        public static final String SELECT_WITH_LIMIT = SELECT + ALL + FROM + TABLE_NAME +
+                ORDER_BY + ID + DESC + LIMIT + VARIABLE;
     }
 }
