@@ -31,6 +31,7 @@ At this project I don't use any third libraries besides libs from Google.
 - *Add button Look to route...DONE*
 - *Refactor and cleanUp code...DONE*
 - *Add Clear history action...DONE*
+- *Add testing for DatabaseManager...DONE*
 - Add PresenterManager for save presenters even Activity was destroyed - coming soon
 
 ## Additional tasks:
