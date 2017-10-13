@@ -66,6 +66,7 @@ public class DatabaseManagerTest extends DatabaseTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullObjectSave() {
+        //noinspection ConstantConditions
         databaseManager.save(null);
     }
 }
