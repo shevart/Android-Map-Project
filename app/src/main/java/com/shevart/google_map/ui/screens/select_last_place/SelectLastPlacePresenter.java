@@ -31,4 +31,10 @@ class SelectLastPlacePresenter extends AbsPresenter<SelectLastPlaceContract.View
             getView().showEmptyHistoryAlert();
         }
     }
+
+    @Override
+    public void clearHistory() {
+        db.clearTripPointsHistory();
+        getView().showEmptyHistoryAlert();
+    }
 }

@@ -10,4 +10,6 @@ public interface DB {
     void save(@NonNull TripPoint tripPoint);
 
     List<TripPoint> getTripPointsFromHistory(int size);
+
+    void clearTripPointsHistory();
 }

@@ -49,6 +49,10 @@ public class TripPointDao extends BaseDao {
         return tripPoints;
     }
 
+    public static void clearTripPointsData(@NonNull SQLiteDatabase database) {
+        database.execSQL(TripPointContract.Script.CLEAR_DATA);
+    }
+
     private static void insertTripPoint(@NonNull SQLiteStatement statement, @NonNull TripPoint tripPoint) {
         bindString(statement, 1, tripPoint.getName());
         bindString(statement, 2, tripPoint.getAddress());

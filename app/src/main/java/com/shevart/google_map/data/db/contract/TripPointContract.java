@@ -30,5 +30,7 @@ public class TripPointContract extends Contract {
 
         public static final String SELECT_WITH_LIMIT = SELECT + ALL + FROM + TABLE_NAME +
                 ORDER_BY + ID + DESC + LIMIT + VARIABLE;
+
+        public static final String CLEAR_DATA = DELETE_FROM + TABLE_NAME;
     }
 }

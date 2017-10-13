@@ -18,4 +18,5 @@
     <string name="no_name">Без имени</string>
     <string name="empty_history_msg">В истории пока пусто</string>
     <string name="history">История</string>
+    <string name="clear_history">Очистить историю</string>
 </resources>

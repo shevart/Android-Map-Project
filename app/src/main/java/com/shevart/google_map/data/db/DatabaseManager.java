@@ -26,4 +26,9 @@ public class DatabaseManager implements DB {
     public List<TripPoint> getTripPointsFromHistory(int size) {
         return TripPointDao.getTripPointsFromHistory(database, size);
     }
+
+    @Override
+    public void clearTripPointsHistory() {
+        TripPointDao.clearTripPointsData(database);
+    }
 }

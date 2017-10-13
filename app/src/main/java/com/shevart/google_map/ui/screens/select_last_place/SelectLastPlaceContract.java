@@ -11,6 +11,8 @@ import java.util.List;
 interface SelectLastPlaceContract {
     interface Presenter extends BasePresenter<View> {
         void loadHistory();
+
+        void clearHistory();
     }
 
     interface View extends BaseView {
