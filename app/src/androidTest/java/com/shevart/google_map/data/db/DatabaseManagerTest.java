@@ -2,8 +2,8 @@ package com.shevart.google_map.data.db;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import com.shevart.google_map.Utils.MockUtil;
-import com.shevart.google_map.Utils.TestUtil;
+import com.shevart.google_map.utils_for_test.MockUtil;
+import com.shevart.google_map.utils_for_test.TestUtil;
 import com.shevart.google_map.models.TripPoint;
 
 import org.junit.Test;

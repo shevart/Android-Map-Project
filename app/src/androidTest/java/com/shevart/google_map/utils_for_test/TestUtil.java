@@ -1,4 +1,4 @@
-package com.shevart.google_map.Utils;
+package com.shevart.google_map.utils_for_test;
 
 import android.support.annotation.NonNull;
 
