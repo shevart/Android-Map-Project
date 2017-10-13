@@ -21,7 +21,7 @@ public class NetUtils {
             case NetRequest.PUT:
                 return "PUT";
             case NetRequest.DELETE:
-                return "delete";
+                return "DELETE";
             default:
                 throw new IllegalArgumentException();
         }

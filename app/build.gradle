@@ -35,4 +35,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.facebook.stetho:stetho:1.5.0'
     testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support:support-annotations:26.1.0'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.android.support.test:runner:0.5'
 }

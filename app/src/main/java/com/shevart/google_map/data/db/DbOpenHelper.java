@@ -6,8 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.shevart.google_map.data.db.contract.TripPointContract;
 
-class DbOpenHelper extends SQLiteOpenHelper {
-    private static final String DB_NAME = "map_project_db";
+@SuppressWarnings("WeakerAccess")
+public class DbOpenHelper extends SQLiteOpenHelper {
+    public static final String DB_NAME = "map_project_db";
     private static final int DB_VERSION = 1;
 
     DbOpenHelper(Context context) {

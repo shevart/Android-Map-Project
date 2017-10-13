@@ -9,6 +9,8 @@ import com.shevart.google_map.models.TripPoint;
 
 import java.util.List;
 
+import static com.shevart.google_map.util.Util.checkNonNull;
+
 public class DatabaseManager implements DB {
     private SQLiteDatabase database;
 
@@ -19,6 +21,7 @@ public class DatabaseManager implements DB {
 
     @Override
     public void save(@NonNull TripPoint tripPoint) {
+        checkNonNull(tripPoint);
         TripPointDao.save(database, tripPoint);
     }
 
