@@ -32,6 +32,7 @@ At this project I don't use any third libraries besides libs from Google.
 - *Refactor and cleanUp code...DONE*
 - *Add Clear history action...DONE*
 - *Add testing for DatabaseManager...DONE*
+- *Add UI testing for Main Screen - launch logic...IN PROGRESS*
 - Add PresenterManager for save presenters even Activity was destroyed - coming soon
 
 ## Additional tasks:
